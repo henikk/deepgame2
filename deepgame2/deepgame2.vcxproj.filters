@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="levels\level1\Level1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\energyguns\EnergyGuns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\explosiveguns\ExplosiveGuns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\machineguns\MachineGuns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\pistols\Pistols.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\shotguns\ShotGuns.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\Weapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD\HUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD\HP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD\WeaponHUD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD\Gadget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD\Information.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="View.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="equipment\weapon\assualtRiffle\AssaultRiffle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FX\Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="levels\level1\Level1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\energyguns\EnergyGuns.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\explosiveguns\ExplosiveGuns.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\machineguns\MachineGuns.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\pistols\Pistols.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\shotguns\ShotGuns.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\Bullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\weaponsList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD\HUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD\HP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD\WeaponHUD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD\Gadget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD\Information.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\AlResource.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\Export.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\InputSoundFile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\Listener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\Music.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\OutputSoundFile.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\Sound.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundBuffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundBufferRecorder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundFileFactory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundFileReader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundFileWriter.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundRecorder.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundSource.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio\SoundStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\BlendMode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\CircleShape.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Color.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\ConvexShape.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Drawable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Export.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Font.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Glsl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Glyph.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Image.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\PrimitiveType.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Rect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\RectangleShape.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\RenderStates.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\RenderTarget.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\RenderTexture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\RenderWindow.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Shape.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Sprite.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Text.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Transform.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Transformable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\Vertex.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\VertexArray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\VertexBuffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics\View.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\Export.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\Ftp.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\Http.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\IpAddress.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\Packet.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\Socket.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\SocketHandle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\SocketSelector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\TcpListener.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\TcpSocket.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network\UdpSocket.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Clock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Err.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Export.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\FileInputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\InputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Lock.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\MemoryInputStream.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Mutex.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\NativeActivity.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\NonCopyable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Sleep.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\String.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Thread.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\ThreadLocal.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\ThreadLocalPtr.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Time.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Utf.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Vector2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System\Vector3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Clipboard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Context.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\ContextSettings.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Cursor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Event.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Export.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\GlResource.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Joystick.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Keyboard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Mouse.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Sensor.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Touch.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\VideoMode.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\Window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\WindowHandle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window\WindowStyle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Audio.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Config.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\GpuPreference.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Graphics.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Main.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Network.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\OpenGL.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\System.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\include\SFML\Window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\assualtRiffle\AssaultRiffle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FX\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FX\dynamic_blur.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FX\Bloom.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\transition\SigmoidTrasition.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\pistol-all.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\pistol_reload.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\pistol_reload_shoot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\pistol_shooting_reload.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\Pistol_V1.00 - EMPTYING.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\Pistol_V1.00 - RELOAD.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\Pistol_V1.00 - SHOOTING (ALL FX).png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\Pistol_V1.00 - SHOOTING (MUZZLE FLASH).png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\Pistol_V1.00 - SHOOTING (SIMPLE NO FX).png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\pistol1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\FX\[MUZZLE_SMOKE] PistolV1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\FX\[CASING] PistolV1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\FX\[FULL_MUZZLE_FLASH] PistolV1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\FX\[MUZZLE_FIRE] PistolV1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_01.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_03.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_04.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_05.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_06.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_07.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\[EMPTYING] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\[FULL_AUTO]_Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\[RELOAD] Assault_rifle_V1.00 - Reload.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\[SINGLE_SHOT] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\FX\[CASING_EXTENDED] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\FX\[CASING_SINGLE_SHOT] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\FX\[FULL_AUTO_CASINGS] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\FX\Muzzle_flash\[SMOKE_ONLY] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\FX\Muzzle_flash\[FIRE_ONLY] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\FX\Muzzle_flash\[FLASH_ONLY] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\FX\Muzzle_flash\[FULL_MUZZLE_FLASH] Assault_rifle_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\blood\5_100x100px.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\blood\1_100x100px.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\blood\2_100x100px.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\blood\3_100x100px.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\blood\4_100x100px.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\box\box1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\enemy\Skeleton Attack.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\enemy\Skeleton Dead.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\enemy\Skeleton Hit.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\enemy\Skeleton Idle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\enemy\Skeleton React.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\enemy\Skeleton Walk.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SINGLE_BULLET_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SCOPE_SINGLE_BULLET_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\[SHOOTING_CHAMBER_OPEN] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\FX\[EMPTYING_SHELL_01] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\FX\[EMPTYING_SHELL_02] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\FX\[FULL_MUZZLE_FLASH] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\FX\[RELOAD_SHELL_01] Shotgun_V1.02 - Rreloading_01.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\FX\[RELOAD_SHELL_02] Shotgun_V1.02 - Rreloading_01.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\FX\[SHOOTING_SHELL_01] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\FX\[SHOOTING_SHELL_02] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\[EMPTYING] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\[RELOAD] Shotgun_V1.02 - Rreloading_01.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\[SHOOTING_CHAMBER_CLOSED] Shotgun_V1.02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[RELOADING_SCOPE]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\FX\[MAGAZINE_ONLY_FIVE_ROUND_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\FX\[RELOADING_CASING_ONLY]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\FX\[SNIPER_MUZZLE_FLASH]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SCOPE__FIVE_ROUND_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SCOPE_SNIPER_MUZZLE_FLASH]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SINGLE_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SNIPER_EMPTYING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SNIPER_ONLY_FIVE_ROUND_RELOADING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\sniper\[SNIPER_SHOOTING]_Sniper_rifle_[KAR98]_V1.00.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\shoot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\empty.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\assault\shootV2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\shotgun\shoot.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\backgrounds\background1.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\smoke.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\flash1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\flash5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\flash2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\flash3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\flash4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\flash_sheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="external\include\SFML\Audio\SoundFileFactory.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\Graphics\Glsl.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\Graphics\Rect.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\System\String.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\System\Thread.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\System\ThreadLocalPtr.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\System\Utf.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\System\Vector2.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="external\include\SFML\System\Vector3.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="src\font\Typodermic Desktop EULA 2023.pdf" />
+    <None Include="x64\Release\deepgame2.tlog\CL.command.1.tlog" />
+    <None Include="x64\Release\deepgame2.tlog\Cl.items.tlog" />
+    <None Include="x64\Release\deepgame2.tlog\CL.read.1.tlog" />
+    <None Include="x64\Release\deepgame2.tlog\CL.write.1.tlog" />
+    <None Include="x64\Release\deepgame2.tlog\deepgame2.lastbuildstate" />
+    <None Include="x64\Release\deepgame2.tlog\link.command.1.tlog" />
+    <None Include="x64\Release\deepgame2.tlog\link.read.1.tlog" />
+    <None Include="x64\Release\deepgame2.tlog\link.write.1.tlog" />
+    <None Include="x64\Release\deepgame2.exe.recipe" />
+    <None Include="x64\Release\deepgame2.iobj" />
+    <None Include="x64\Release\deepgame2.ipdb" />
+    <None Include="x64\Release\openal32.dll" />
+    <None Include="x64\Release\sfml-audio-2.dll" />
+    <None Include="x64\Release\sfml-audio-d-2.dll" />
+    <None Include="x64\Release\sfml-graphics-2.dll" />
+    <None Include="x64\Release\sfml-graphics-d-2.dll" />
+    <None Include="x64\Release\sfml-network-2.dll" />
+    <None Include="x64\Release\sfml-network-d-2.dll" />
+    <None Include="x64\Release\sfml-system-2.dll" />
+    <None Include="x64\Release\sfml-system-d-2.dll" />
+    <None Include="x64\Release\sfml-window-2.dll" />
+    <None Include="x64\Release\sfml-window-d-2.dll" />
+    <None Include="x64\Release\vc143.pdb" />
+    <None Include="deepgame2.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="src\font\orange kid.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="x64\Release\Box.obj" />
+    <Object Include="x64\Release\Bullet.obj" />
+    <Object Include="x64\Release\Collision.obj" />
+    <Object Include="x64\Release\EnergyGuns.obj" />
+    <Object Include="x64\Release\Entity.obj" />
+    <Object Include="x64\Release\ExplosiveGuns.obj" />
+    <Object Include="x64\Release\Gadget.obj" />
+    <Object Include="x64\Release\Game.obj" />
+    <Object Include="x64\Release\HP.obj" />
+    <Object Include="x64\Release\HUD.obj" />
+    <Object Include="x64\Release\Information.obj" />
+    <Object Include="x64\Release\Level.obj" />
+    <Object Include="x64\Release\Level1.obj" />
+    <Object Include="x64\Release\MachineGuns.obj" />
+    <Object Include="x64\Release\main.obj" />
+    <Object Include="x64\Release\Pistols.obj" />
+    <Object Include="x64\Release\Player.obj" />
+    <Object Include="x64\Release\ShotGuns.obj" />
+    <Object Include="x64\Release\types.obj" />
+    <Object Include="x64\Release\View.obj" />
+    <Object Include="x64\Release\Weapon.obj" />
+    <Object Include="x64\Release\WeaponHUD.obj" />
+    <Object Include="x64\Release\Window.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="x64\Release\deepgame2.log" />
+  </ItemGroup>
+</Project>
