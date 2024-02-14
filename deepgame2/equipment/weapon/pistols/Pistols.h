@@ -22,7 +22,7 @@ public:
 public:
 	// Setters
 	__forceinline virtual void setDamage(u8 damage) override { this->m_damage = damage; }
-	__forceinline virtual void setAccuracy(u8 accuracy) override { this->m_accuracy = accuracy; }
+	__forceinline virtual void setAccuracy(u8 accuracy) override { this->m_maxAccuracy = accuracy; }
 	__forceinline virtual void setFireRate(float fireRate) override { this->m_fireRate = fireRate; }
 	__forceinline virtual void setCapacity(u16 capacity) override { this->m_capacity = capacity; }
 	__forceinline virtual void setAmmo(u16 ammo) override { this->m_ammo = ammo; }
@@ -31,7 +31,7 @@ public:
 
 	// Getters
 	__forceinline virtual const u8 getDamage() const override { return this->m_damage; }
-	__forceinline virtual const u8 getAccuracy() const override { return this->m_accuracy; }
+	__forceinline virtual const u8 getAccuracy() const override { return this->m_maxAccuracy; }
 	__forceinline virtual const float getFireRate() const override { return this->m_fireRate; }
 	__forceinline virtual const u16 getCapacity() const override { return this->m_capacity; }
 	__forceinline virtual const u16 getAmmo() const override { return this->m_ammo; }

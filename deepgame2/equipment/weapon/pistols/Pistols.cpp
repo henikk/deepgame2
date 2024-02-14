@@ -4,19 +4,22 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToParticleTexture, _pathsToSounds)
 {
 	this->m_damage = 12;
-	this->m_accuracy = 90;
+	this->m_maxAccuracy = 95;
 	this->m_bulletsPerShot = 1;
+	this->m_accuracyRecoverySpeed = 40.0f;
+	this->m_recoil = 10.0f;
 	this->m_bulletSpeed = 4500;
 	this->m_fireRange = 2000;
 	this->m_capacity = 9;
-	this->m_ammo = 30;	
+	this->m_ammo = 27;	
 	this->m_magazine = this->m_capacity;
 	this->m_reloadTime = 3.5f;
 	this->m_fireRate = 5.5f;
 
 	this->m_singleShot = true;
-	this->m_showFlash = true;
 	this->m_showSmoke = true;
+	this->m_showFlash = true;
+	this->m_dynamicAccuracy = true;
 
 	this->m_shotFrameCount = 8;
 	this->m_emptyFrameCount = 4;
@@ -36,10 +39,10 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_particleAcceleration = 1.0f;
 	this->m_particleUpwardForce = 1.0f;
 	this->m_particleLifeTime = 0.2f;
-
-	//this->m_soundBuffer.loadFromFile(this->m_pathsToSounds[0]);
-	//this->m_shotSound.setBuffer(this->m_soundBuffer);
 	
+	this->m_shotSound.setPitch(1.5f);
+	this->m_shotSound.setVolume(30);
+
 	// Move this to Weapon.cpp
 	this->m_texture.loadFromFile(_pathToTexture);
 	this->m_bulletTexture.loadFromFile(_pathToBulletTexture);

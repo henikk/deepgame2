@@ -34,6 +34,7 @@ private:
 	sf::Clock m_shootClock;
 	sf::Clock m_reloadClock;
 	sf::Clock m_reloadAnimationClock;
+	sf::Clock m_flashClock;
 	sf::Time m_shootElapsedTime;
 	sf::Time m_reloadElapsedTime;
 	sf::Time m_reloadAnimationElapsedTime;
@@ -45,11 +46,24 @@ private:
 	sf::Sprite m_flashSprite;
 
 private:
-	float accuracyControl() const;
+	sf::CircleShape m_topCursor;
+	sf::CircleShape m_bottomCursor;
+
+private:
+	float m_currentAccuracy;
+
+private:
+	float addRandToAngle() const;
+	void increaseAccuracy(float deltaTime);
+	void decreaseAccuracy();
+
 	const void animateShot();
 	const void animateEmpty();
 	const void animateReload();
+
 	const void showFlash(float angle);
+
+	const void makeShotSound();
 
 protected:
 	sf::Texture m_texture;
@@ -69,9 +83,11 @@ protected:
 
 protected:
 	u8 m_damage;					// How much hp will gone when hit
-	u8 m_accuracy;					// Chance to hit near target from 0% to 100%
+	u8 m_maxAccuracy;				// Chance to hit near target from 0% to 100%
 	u8 m_bulletsPerShot;			// How many bullets will spawn when shot
-	u16 m_bulletSpeed;				// Pixels per "some" time ¯\_(ツ)_/¯
+	u8 m_accuracyRecoverySpeed;		// How fast accuracy will recover its state
+	u8 m_recoil;					// How much accuracy will change per shot
+	u16 m_bulletSpeed;				// Pixels per second time. I don't sure about secs
 	u16 m_fireRange;				// Max distance bullet can reach
 	u16 m_capacity;					// Max capacity of 1 magazine
 	u16 m_ammo;						// Avaible ammo in stock
@@ -94,14 +110,16 @@ protected:
 
 protected:
 	std::vector<std::string> m_pathsToSounds;
-	//sf::SoundBuffer m_soundBuffer;
-	//sf::Sound m_shotSound;
+	sf::SoundBuffer m_soundBuffer;
+	sf::Sound m_shotSound;
 
 protected:
 	bool m_isSelected;
 	bool m_singleShot;
 	bool m_showSmoke;
 	bool m_showFlash;
+	bool m_dynamicAccuracy;
+
 	bool m_playerLookDirection;
 
 public:

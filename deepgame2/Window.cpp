@@ -12,7 +12,8 @@ void Window::initWindow()
 
     this->m_window = new sf::RenderWindow(this->m_videoMode, this->m_title, sf::Style::Close);
     this->m_window->setFramerateLimit(this->m_fpsLimit);	
-	
+	this->m_window->setMouseCursorVisible(false);
+
 	this->m_backgroundTexture.loadFromFile("textures/backgrounds/background2.png");
 	this->m_backgroundSprite.setTexture(this->m_backgroundTexture);
 	this->m_backgroundSprite.setOrigin( this->m_backgroundTexture.getSize().x / 2.0f, this->m_backgroundTexture.getSize().y / 2.0f );

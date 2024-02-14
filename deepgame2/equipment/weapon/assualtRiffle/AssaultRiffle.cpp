@@ -4,19 +4,22 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToParticleTexture, _pathsToSounds)
 {
 	this->m_damage = 15;
-	this->m_accuracy = 85;
+	this->m_maxAccuracy = 99;
 	this->m_bulletsPerShot = 1;
-	this->m_bulletSpeed = 5000;
+	this->m_accuracyRecoverySpeed = 42.0f;
+	this->m_recoil = 6.8f;
+	this->m_bulletSpeed = 10000;
 	this->m_fireRange = 2000;
 	this->m_capacity = 30;
-	this->m_ammo = 100;
+	this->m_ammo = 90;
 	this->m_magazine = this->m_capacity;
 	this->m_reloadTime = 4.0f;
 	this->m_fireRate = 12.5f;
 
 	this->m_singleShot = false;
-	this->m_showFlash = true;
 	this->m_showSmoke = true;
+	this->m_showFlash = true;
+	this->m_dynamicAccuracy = true;
 
 	this->m_shotFrameCount = 10;
 	this->m_emptyFrameCount = 8;

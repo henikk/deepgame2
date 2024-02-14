@@ -78,6 +78,9 @@
     <ClCompile Include="FX\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="levels\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -449,6 +452,9 @@
     <ClInclude Include="external\transition\SigmoidTrasition.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="levels\Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\pistol-all.png">
@@ -748,6 +754,17 @@
     <None Include="x64\Release\sfml-window-d-2.dll" />
     <None Include="x64\Release\vc143.pdb" />
     <None Include="deepgame2.exe" />
+    <None Include="external\lib\sfml-audio-d.pdb" />
+    <None Include="external\lib\sfml-audio-s-d.pdb" />
+    <None Include="external\lib\sfml-graphics-d.pdb" />
+    <None Include="external\lib\sfml-graphics-s-d.pdb" />
+    <None Include="external\lib\sfml-main-s-d.pdb" />
+    <None Include="external\lib\sfml-network-d.pdb" />
+    <None Include="external\lib\sfml-network-s-d.pdb" />
+    <None Include="external\lib\sfml-system-d.pdb" />
+    <None Include="external\lib\sfml-system-s-d.pdb" />
+    <None Include="external\lib\sfml-window-d.pdb" />
+    <None Include="external\lib\sfml-window-s-d.pdb" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="src\font\orange kid.otf" />
@@ -779,5 +796,41 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="x64\Release\deepgame2.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="external\lib\flac.lib" />
+    <Library Include="external\lib\freetype.lib" />
+    <Library Include="external\lib\ogg.lib" />
+    <Library Include="external\lib\openal32.lib" />
+    <Library Include="external\lib\sfml-audio.lib" />
+    <Library Include="external\lib\sfml-audio-d.lib" />
+    <Library Include="external\lib\sfml-audio-s.lib" />
+    <Library Include="external\lib\sfml-audio-s-d.lib" />
+    <Library Include="external\lib\sfml-graphics.lib" />
+    <Library Include="external\lib\sfml-graphics-d.lib" />
+    <Library Include="external\lib\sfml-graphics-s.lib" />
+    <Library Include="external\lib\sfml-graphics-s-d.lib" />
+    <Library Include="external\lib\sfml-main.lib" />
+    <Library Include="external\lib\sfml-main-d.lib" />
+    <Library Include="external\lib\sfml-network.lib" />
+    <Library Include="external\lib\sfml-network-d.lib" />
+    <Library Include="external\lib\sfml-network-s.lib" />
+    <Library Include="external\lib\sfml-network-s-d.lib" />
+    <Library Include="external\lib\sfml-system.lib" />
+    <Library Include="external\lib\sfml-system-d.lib" />
+    <Library Include="external\lib\sfml-system-s.lib" />
+    <Library Include="external\lib\sfml-system-s-d.lib" />
+    <Library Include="external\lib\sfml-window.lib" />
+    <Library Include="external\lib\sfml-window-d.lib" />
+    <Library Include="external\lib\sfml-window-s.lib" />
+    <Library Include="external\lib\sfml-window-s-d.lib" />
+    <Library Include="external\lib\vorbis.lib" />
+    <Library Include="external\lib\vorbisenc.lib" />
+    <Library Include="external\lib\vorbisfile.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="sounds\shot\pistol\shot1.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
