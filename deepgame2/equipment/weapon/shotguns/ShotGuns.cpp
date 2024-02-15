@@ -6,8 +6,8 @@ ShotGuns::ShotGuns(std::string _pathToTexture, std::string _pathToBulletTexture,
 	this->m_damage = 4;
 	this->m_maxAccuracy = 75;
 	this->m_bulletsPerShot = 5;
-	this->m_accuracyRecoverySpeed = 0.0f;
-	this->m_recoil = 0.0f;
+	this->m_accuracyRecoverySpeed = 25.0f;
+	this->m_recoil = 15.0f;
 	this->m_bulletSpeed = 3200;
 	this->m_fireRange = 2000;
 	this->m_capacity = 6;
@@ -19,7 +19,7 @@ ShotGuns::ShotGuns(std::string _pathToTexture, std::string _pathToBulletTexture,
 	this->m_singleShot = true;
 	this->m_showSmoke = true;
 	this->m_showFlash = true;
-	this->m_dynamicAccuracy = false;
+	this->m_dynamicAccuracy = true;
 
 	this->m_shotFrameCount = 14;
 	this->m_emptyFrameCount = 6;

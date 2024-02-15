@@ -46,11 +46,13 @@ private:
 	sf::Sprite m_flashSprite;
 
 private:
-	sf::CircleShape m_topCursor;
-	sf::CircleShape m_bottomCursor;
+	sf::Sprite m_topCursor;
+	sf::Sprite m_bottomCursor;
+	sf::Texture m_cursorTexture;
 
 private:
 	float m_currentAccuracy;
+	float m_accuracyAngle;
 
 private:
 	float addRandToAngle() const;
@@ -61,10 +63,19 @@ private:
 	const void animateEmpty();
 	const void animateReload();
 
-	const void showFlash(float angle);
-
+	const void spawnBullet();
+	const void spawnSmoke();
+	const void showFlash();
 	const void makeShotSound();
 
+private:
+	void initCursor();
+	void initFlash();
+
+private:
+	void updateBullets(float deltaTime);
+	void updateSmokeParticles(float deltaTime);
+		
 protected:
 	sf::Texture m_texture;
 	sf::Texture m_bulletTexture;

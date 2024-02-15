@@ -176,6 +176,10 @@
     <Image Include="textures\blood\4_100x100px.png" />
     <Image Include="textures\blood\5_100x100px.png" />
     <Image Include="textures\box\box1.png" />
+    <Image Include="textures\cursor\arrow.png" />
+    <Image Include="textures\cursor\arrow2.png" />
+    <Image Include="textures\cursor\arrow3.png" />
+    <Image Include="textures\cursor\arrow4.png" />
     <Image Include="textures\enemy\Skeleton Attack.png" />
     <Image Include="textures\enemy\Skeleton Dead.png" />
     <Image Include="textures\enemy\Skeleton Hit.png" />

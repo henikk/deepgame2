@@ -3,24 +3,10 @@
 Weapon::Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds)
 	: m_pathToTexture(_pathToTexture), m_pathToBulletTexture(_pathToBulletTexture), m_pathToParticleTexture(_pathToParticleTexture), m_pathsToSounds(_pathsToSounds), m_canShoot(true), m_isSelected(false)
 {
-	this->m_topCursor.setRadius(3.5f);
-	this->m_topCursor.setOrigin(this->m_topCursor.getRadius(), this->m_topCursor.getRadius());
-	this->m_topCursor.setFillColor(sf::Color::Blue);
-	this->m_bottomCursor.setRadius(3.5f);
-	this->m_bottomCursor.setOrigin(this->m_bottomCursor.getRadius(), this->m_bottomCursor.getRadius());
-	this->m_bottomCursor.setFillColor(sf::Color::Yellow);
-
 	this->m_currentAccuracy = 100.0f; // Set maximum accuracy from the begining
 
-	this->m_isFlashShown = false;
-	this->m_flashFramesCount = 5;
-	this->m_flashFrame = {0, 0, 256, 128 };
-	this->m_flashTexture.loadFromFile("textures/particles/flash_sheet.png");
-	this->m_flashTexture.setSmooth(true);
-	this->m_flashSprite.setTexture(this->m_flashTexture);
-	this->m_flashSprite.setTextureRect(this->m_flashFrame);
-	this->m_flashSprite.setOrigin({ 0.0f, this->m_flashTexture.getSize().y / 2.0f });
-	this->m_flashSprite.setScale({ 0.25f, 0.35f });
+	initCursor();
+	initFlash();
 }
 
 Weapon::~Weapon(){}
@@ -33,8 +19,7 @@ void Weapon::Shoot()
 		{
 			if (this->m_magazine > 0)
 			{
-				u8 smokeAngle = (100 - this->m_maxAccuracy) * 2;
-				float accuracyAngle = 0.0f;
+				this->m_accuracyAngle = 0.0f;
 
 				this->m_hasShot = true;
 				this->m_shotAnimating = true;
@@ -43,35 +28,18 @@ void Weapon::Shoot()
 				for (int i = 0; i < this->m_bulletsPerShot; i++)
 				{
 					if (this->m_playerLookDirection)
-						accuracyAngle = this->addRandToAngle();
+						this->m_accuracyAngle = this->addRandToAngle();
 					else
-						accuracyAngle = 180.0f - this->addRandToAngle();
+						this->m_accuracyAngle = 180.0f - this->addRandToAngle();
 
-					this->m_bullets.emplace_back(Bullet(&this->m_bulletTexture, this->m_barrelPosition, this->m_bulletSpeed,
-						this->m_damage, accuracyAngle, this->m_fireRange));
-
-					if (this->m_showSmoke)
-					{
-						this->m_shotSmokeArray.emplace_back(Particle(
-							this->m_particleColor,
-							&this->m_particleSmokeTexture,
-							this->m_barrelPosition,
-							this->m_particleInitialScale,
-							this->m_particleMaxScale,
-							this->m_particleRotationSpeed,
-							this->m_particleInitialAlpha,
-							this->m_particleSpeed,
-							this->m_particleAcceleration,
-							accuracyAngle + rand() % (smokeAngle + 1) - static_cast<float>(smokeAngle / 2),
-							this->m_particleUpwardForce,
-							this->m_particleLifeTime
-						));
-					}
+					this->spawnBullet();
+					this->spawnSmoke();
+					
 				}
 				this->m_magazine--;
 
 				this->makeShotSound();
-				this->showFlash(accuracyAngle);
+				this->showFlash();
 				this->decreaseAccuracy();
 			}
 			this->m_shootClock.restart();
@@ -137,7 +105,7 @@ void Weapon::AngleControl(const sf::RenderWindow* target)
 		this->m_body.setScale({ -1.0f, 1.0f });
 		this->m_angle = 180.0f - this->m_angle;
 		this->m_body.setRotation(-this->m_angle);
-	}
+	}		
 }
 
 float Weapon::addRandToAngle() const
@@ -224,7 +192,7 @@ const void Weapon::animateReload()
 	}
 }
 
-const void Weapon::showFlash(float angle)
+const void Weapon::showFlash()
 {
 	if (!this->m_isFlashShown && this->m_showFlash)
 	{
@@ -232,10 +200,39 @@ const void Weapon::showFlash(float angle)
 
 		this->m_flashSprite.setTextureRect(this->m_flashFrame);
 		this->m_flashSprite.setPosition(this->m_barrelPosition);
-		this->m_flashSprite.setRotation(angle);
+		this->m_flashSprite.setRotation(this->m_accuracyAngle);
 		this->m_flashSprite.setColor(sf::Color(255, 230, 200, rand() % 201 + 55));
 
 		this->m_isFlashShown = true;
+	}
+}
+
+const void Weapon::spawnBullet()
+{
+	this->m_bullets.emplace_back(Bullet(&this->m_bulletTexture, this->m_barrelPosition, this->m_bulletSpeed,
+		this->m_damage, this->m_accuracyAngle, this->m_fireRange));
+}
+
+const void Weapon::spawnSmoke()
+{
+	if (this->m_showSmoke)
+	{
+		u8 smokeAngle = (100 - this->m_maxAccuracy) * 2;
+
+		this->m_shotSmokeArray.emplace_back(Particle(
+			this->m_particleColor,
+			&this->m_particleSmokeTexture,
+			this->m_barrelPosition,
+			this->m_particleInitialScale,
+			this->m_particleMaxScale,
+			this->m_particleRotationSpeed,
+			this->m_particleInitialAlpha,
+			this->m_particleSpeed,
+			this->m_particleAcceleration,
+			this->m_accuracyAngle + rand() % (smokeAngle + 1) - static_cast<float>(smokeAngle / 2),
+			this->m_particleUpwardForce,
+			this->m_particleLifeTime
+		));
 	}
 }
 
@@ -246,28 +243,36 @@ const void Weapon::makeShotSound()
 	this->m_shotSound.play();
 }
 
-void Weapon::update(const sf::RenderWindow* target, float deltaTime)
+void Weapon::initCursor()
 {
-	sf::Vector2f mouseWorldPosition = target->mapPixelToCoords(sf::Mouse::getPosition(*target));
+	this->m_cursorTexture.loadFromFile("textures/cursor/arrow4.png");
 
-	if (this->m_isSelected)
-	{
-		float distanceBetweenCursors = (100.0f - this->m_currentAccuracy) / 2.0f;
-		this->m_topCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y - distanceBetweenCursors + 1));
-		this->m_bottomCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y + distanceBetweenCursors));
-	}
+	this->m_topCursor.setTexture(this->m_cursorTexture);
+	this->m_topCursor.setScale({ 0.40f, 0.40f });
+	this->m_topCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, this->m_cursorTexture.getSize().y / 2.0f);
+	this->m_topCursor.setColor(sf::Color(0, 252, 97));
 
-	this->m_body.setPosition(this->m_position + this->m_gunOffset);
+	this->m_bottomCursor.setTexture(this->m_cursorTexture);
+	this->m_bottomCursor.setScale({ 0.40f, -0.40f });
+	this->m_bottomCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, this->m_cursorTexture.getSize().y / 2.0f);
+	this->m_bottomCursor.setColor(sf::Color(0, 252, 97));
+}
 
-	// Reload
-	if (this->m_reloadElapsedTime.asSeconds() > this->m_reloadTime && this->m_reloadAnimating == false)
-		this->m_canShoot = true;
+void Weapon::initFlash()
+{
+	this->m_isFlashShown = false;
+	this->m_flashFramesCount = 5;
+	this->m_flashFrame = { 0, 0, 256, 128 };
+	this->m_flashTexture.loadFromFile("textures/particles/flash_sheet.png");
+	this->m_flashTexture.setSmooth(true);
+	this->m_flashSprite.setTexture(this->m_flashTexture);
+	this->m_flashSprite.setTextureRect(this->m_flashFrame);
+	this->m_flashSprite.setOrigin({ 0.0f, this->m_flashTexture.getSize().y / 2.0f });
+	this->m_flashSprite.setScale({ 0.25f, 0.35f });
+}
 
-	// Emptying
-	if (this->m_magazine <= 0)
-		this->m_emptyAnimating = true;
-
-	// Clear or Update bullets array
+void Weapon::updateBullets(float deltaTime)
+{
 	for (auto it = this->m_bullets.begin(); it != this->m_bullets.end();)
 	{
 		if (!it->isAlive())
@@ -280,7 +285,10 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 			++it;
 		}
 	}
-	// Clear or Update smoke particles array
+}
+
+void Weapon::updateSmokeParticles(float deltaTime)
+{
 	if (this->m_showSmoke)
 	{
 		for (auto it = this->m_shotSmokeArray.begin(); it != this->m_shotSmokeArray.end();)
@@ -296,8 +304,23 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 			}
 		}
 	}
+}
 
-	
+void Weapon::update(const sf::RenderWindow* target, float deltaTime)
+{
+	this->m_body.setPosition(this->m_position + this->m_gunOffset);
+
+	// Reload
+	if (this->m_reloadElapsedTime.asSeconds() > this->m_reloadTime && this->m_reloadAnimating == false)
+		this->m_canShoot = true;
+
+	// Emptying
+	if (this->m_magazine <= 0)
+		this->m_emptyAnimating = true;
+
+	this->updateBullets(deltaTime);
+	this->updateSmokeParticles(deltaTime);
+
 	if (this->m_isSelected)
 	{
 		this->animateShot();
@@ -311,7 +334,14 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 
 void Weapon::updateInput(const sf::RenderWindow* target)
 {
-	AngleControl(target);
+	sf::Vector2f mouseWorldPosition = target->mapPixelToCoords(sf::Mouse::getPosition(*target));
+
+	if (this->m_isSelected)
+	{
+		float distanceBetweenCursors = (100.0f - this->m_currentAccuracy) / 2.0f;
+		this->m_topCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y - distanceBetweenCursors + 1));
+		this->m_bottomCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y + distanceBetweenCursors));
+	}
 
 	// Keys binding
 	if (this->m_singleShot)
@@ -334,6 +364,8 @@ void Weapon::updateInput(const sf::RenderWindow* target)
 	{
 		this->Reload();
 	}
+
+	AngleControl(target);
 }
 
 void Weapon::updateTime()

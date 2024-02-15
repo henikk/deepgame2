@@ -700,6 +700,18 @@
     <Image Include="textures\particles\flash_sheet.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="textures\cursor\arrow.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\cursor\arrow2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\cursor\arrow4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\cursor\arrow3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="external\include\SFML\Audio\SoundFileFactory.inl">
