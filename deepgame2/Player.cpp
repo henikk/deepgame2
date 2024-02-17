@@ -160,6 +160,32 @@ const bool Player::getDirection() const
 		return false;
 }
 
+const u16 Player::getWeaponViewRange() const
+{
+	switch (selectedWeapon)
+	{
+	case WeaponType::PRIMARILY:
+		return this->currentAssault.getViewRange();
+		break;
+
+	case WeaponType::SECONDARY:
+		return this->currentPistol.getViewRange();
+		break;
+
+	case WeaponType::TERTIARY:
+		return 1600; // [TEMP]
+		break;
+
+	case WeaponType::QUATERNARY:
+		return this->currentShotgun.getViewRange();
+		break;
+
+	default:
+		return 1600; // [TEMP]
+		break;
+	}
+}
+
 const void Player::kill()
 {
 	this->m_hp = 0;

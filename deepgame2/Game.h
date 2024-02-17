@@ -19,6 +19,11 @@ private:
     sf::Clock clock;
     float deltaTime;
 
+    int map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
+    {
+        return round((value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow);
+    }
+
 protected:
     Player player{ {50.0f, 100.0f }, sf::Color(222, 125, 70) , {0.0f, 0.0f}, 100, 100 };
     HUD hud;

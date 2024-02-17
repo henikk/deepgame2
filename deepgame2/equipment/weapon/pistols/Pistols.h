@@ -37,6 +37,7 @@ public:
 	__forceinline virtual const u16 getAmmo() const override { return this->m_ammo; }
 	__forceinline virtual const u16 getMagazine() const override { return this->m_magazine; }
 	__forceinline virtual const sf::Vector2f getPosition() const override { return this->m_position; }
+	__forceinline virtual const u16 getViewRange() const override { return this->m_viewRange; }
 
 public:
 	virtual void update(const sf::RenderWindow* target, float deltaTime) override;

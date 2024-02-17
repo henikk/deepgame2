@@ -10,6 +10,7 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_recoil = 10.0f;
 	this->m_bulletSpeed = 4500;
 	this->m_fireRange = 2000;
+	this->m_viewRange = this->m_fireRange;
 	this->m_capacity = 9;
 	this->m_ammo = 27;	
 	this->m_magazine = this->m_capacity;

@@ -100,6 +100,7 @@ public:
     __forceinline const u8 getHp() const { return this->m_hp; }
     __forceinline const u8 getArmor() const { return this->m_armor; }
     const bool getDirection() const;
+    const u16 getWeaponViewRange() const;
 
 public:
     // Other

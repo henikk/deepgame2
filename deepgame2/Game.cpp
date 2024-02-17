@@ -7,7 +7,7 @@ Game::Game()
 
 Game::~Game()
 {
- 
+
 }
 
 Window* Game::GetWindow()
@@ -44,7 +44,7 @@ void Game::Render()
 {
 	this->m_window.BeginDraw();
 	this->m_window.drawBackground();
-	
+
 	if (player.isAlive())
 		this->player.render(this->m_window.GetWindow());
 
@@ -55,8 +55,14 @@ void Game::Render()
 
 void Game::UpdateView(float deltaTime)
 {
-	this->view.update(sf::Vector2f(player.getPosition().x + player.getSize().x / 2,
-		player.getPosition().y + player.getSize().y / 2), deltaTime);
-	this->m_window.GetWindow()->setView(view.getView());
+	sf::Vector2i mousePos = sf::Mouse::getPosition();
+	u16 viewRange = this->player.getWeaponViewRange();
+
+	mousePos.x = map(mousePos.x, 0, 1600, -(viewRange) / 2.0f, viewRange / 2.0f) - this->m_window.GetWindow()->getPosition().x;
+	mousePos.y = map(mousePos.y, 0, 800, -(viewRange * (16 / 9)) / 2.0f, (viewRange * (16 / 9))) / 2.0f - this->m_window.GetWindow()->getPosition().y;
+
+	this->view.update(sf::Vector2f(mousePos.x + this->player.getPosition().x / 2 + player.getSize().x / 2,
+		mousePos.y + this->player.getPosition().y / 2 + player.getSize().y / 2), deltaTime);
+	this->m_window.GetWindow()->setView(this->view.getView());
 }
 

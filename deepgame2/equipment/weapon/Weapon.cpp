@@ -285,7 +285,7 @@ const void Weapon::makeShotSound()
 
 void Weapon::initCursor()
 {
-	this->m_cursorColor = { 0, 252, 97 };
+	this->m_cursorColor = { 0, 250, 100 };
 	this->m_cursorScale = { 0.40f, 0.40f };
 
 	this->m_cursorTexture.loadFromFile("textures/cursor/arrow4.png");
@@ -481,8 +481,10 @@ void Weapon::render(sf::RenderWindow* target)
 
 	if (this->m_isSelected)
 	{
-		target->setTitle("Magazine: " + std::to_string(this->m_magazine) + " | Accuracy: " + std::to_string(int(this->m_currentAccuracy))); // [DEBUG]
+		target->setTitle("Magazine: " + std::to_string(this->m_magazine) + " | Accuracy: " + std::to_string((int)this->m_currentAccuracy));
+
 		target->draw(this->m_body);
+
 		this->renderCursor(target);
 	}	
 	this->renderShells(target); // [TEMP]

@@ -10,6 +10,7 @@ ShotGuns::ShotGuns(std::string _pathToTexture, std::string _pathToBulletTexture,
 	this->m_recoil = 15.0f;
 	this->m_bulletSpeed = 3200;
 	this->m_fireRange = 2000;
+	this->m_viewRange = this->m_fireRange;
 	this->m_capacity = 6;
 	this->m_ammo = 18;
 	this->m_magazine = this->m_capacity;

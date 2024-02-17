@@ -116,7 +116,8 @@ protected:
 	u8 m_accuracyRecoverySpeed;		// How fast accuracy will recover its state
 	u8 m_recoil;					// How much accuracy will change per shot
 	u16 m_bulletSpeed;				// Pixels per second time. I don't sure about secs
-	u16 m_fireRange;				// Max distance bullet can reach
+	u16 m_viewRange;				// Max distance CAMERA can reach in pixels
+	u16 m_fireRange;				// Max distance BULLET can reach in pixels
 	u16 m_capacity;					// Max capacity of 1 magazine
 	u16 m_ammo;						// Avaible ammo in stock
 	u16 m_magazine = m_capacity;	// Ammo in magazine is avaible to shoot
@@ -193,6 +194,7 @@ public:
 	__forceinline virtual const u16 getAmmo() const = 0;
 	__forceinline virtual const u16 getMagazine() const = 0;
 	__forceinline virtual const sf::Vector2f getPosition() const = 0;
+	__forceinline virtual const u16 getViewRange() const = 0;
 
 public:
 	virtual void update(const sf::RenderWindow* target, float deltaTime) = 0;

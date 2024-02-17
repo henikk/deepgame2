@@ -10,6 +10,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_recoil = 6.8f;
 	this->m_bulletSpeed = 10000;
 	this->m_fireRange = 2000;
+	this->m_viewRange = this->m_fireRange;
 	this->m_capacity = 30;
 	this->m_ammo = 90;
 	this->m_magazine = this->m_capacity;
