@@ -19,6 +19,7 @@ private:
     sf::Clock clock;
     float deltaTime;
 
+    // [TEMP]
     int map(double value, double fromLow, double fromHigh, double toLow, double toHigh)
     {
         return round((value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow);

@@ -58,11 +58,11 @@ void Game::UpdateView(float deltaTime)
 	sf::Vector2i mousePos = sf::Mouse::getPosition();
 	u16 viewRange = this->player.getWeaponViewRange();
 
-	mousePos.x = map(mousePos.x, 0, 1600, -(viewRange) / 2.0f, viewRange / 2.0f) - this->m_window.GetWindow()->getPosition().x;
-	mousePos.y = map(mousePos.y, 0, 800, -(viewRange * (16 / 9)) / 2.0f, (viewRange * (16 / 9))) / 2.0f - this->m_window.GetWindow()->getPosition().y;
-
-	this->view.update(sf::Vector2f(mousePos.x + this->player.getPosition().x / 2 + player.getSize().x / 2,
-		mousePos.y + this->player.getPosition().y / 2 + player.getSize().y / 2), deltaTime);
+	mousePos.x = map(mousePos.x, 0, this->m_window.GetWindow()->getSize().x, -(viewRange) / 2.0f, viewRange / 2.0f) - this->m_window.GetWindow()->getPosition().x;
+	mousePos.y = map(mousePos.y, 0, this->m_window.GetWindow()->getSize().y, -(viewRange * (16 / 9)) / 2.0f, (viewRange * (16 / 9)) / 2.0f) - this->m_window.GetWindow()->getPosition().y;
+	
+	this->view.update(sf::Vector2f(mousePos.x + this->player.getPosition().x+ player.getSize().x / 2.0f,
+		mousePos.y + this->player.getPosition().y + player.getSize().y / 2.0f), deltaTime);
 	this->m_window.GetWindow()->setView(this->view.getView());
 }
 
