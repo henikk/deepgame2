@@ -10,7 +10,7 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_recoil = 10.0f;
 	this->m_bulletSpeed = 4500;
 	this->m_fireRange = 2000;
-	this->m_viewRange = this->m_fireRange;
+	this->m_viewRange = 1600; // TEMP
 	this->m_capacity = 9;
 	this->m_ammo = 27;	
 	this->m_magazine = this->m_capacity;
@@ -20,6 +20,7 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_singleShot = true;
 	this->m_showSmoke = true;
 	this->m_showFlash = true;
+	this->m_showShells = true;
 	this->m_dynamicAccuracy = true;
 
 	this->m_shotFrameCount = 8;
@@ -46,7 +47,7 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_particleInitialScale = { 0.03f, 0.03f };
 	this->m_particleMaxScale = { 0.085f, 0.085f };
 	this->m_particleRotationSpeed = 55;
-	this->m_particleInitialAlpha = 100;
+	this->m_particleInitialAlpha = 150;
 	this->m_particleSpeed = 70;
 	this->m_particleAcceleration = 1.0f;
 	this->m_particleUpwardForce = 1.0f;

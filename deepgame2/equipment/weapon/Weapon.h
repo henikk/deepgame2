@@ -159,6 +159,7 @@ protected:
 	bool m_singleShot;
 	bool m_showSmoke;
 	bool m_showFlash;
+	bool m_showShells;
 	bool m_dynamicAccuracy;
 
 	bool m_playerLookDirection;

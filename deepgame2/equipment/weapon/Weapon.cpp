@@ -237,20 +237,23 @@ const void Weapon::spawnBullet()
 
 const void Weapon::spawnShell()
 {
-	this->m_shells.emplace_back(Particle(
-		this->m_shellColor,
-		&this->m_shellTexture,
-		this->m_ejectionPortPosition,
-		this->m_shellInitialScale,
-		this->m_shellMaxScale,
-		this->m_shellInitialAlpha,
-		this->m_shellRotationSpeed,
-		this->m_shellSpeed,
-		this->m_shellAcceleration,
-		-90.0f + rand() % (10 + 1) - static_cast<float>(10 / 2),
-		-this->m_shellDownwardForce,
-		this->m_shellLifeTime
-	));
+	if (this->m_showShells)
+	{
+		this->m_shells.emplace_back(Particle(
+			this->m_shellColor,
+			&this->m_shellTexture,
+			this->m_ejectionPortPosition,
+			this->m_shellInitialScale,
+			this->m_shellMaxScale,
+			this->m_shellInitialAlpha,
+			this->m_shellRotationSpeed,
+			this->m_shellSpeed,
+			this->m_shellAcceleration,
+			-90.0f + rand() % (10 + 1) - static_cast<float>(10 / 2),
+			-this->m_shellDownwardForce,
+			this->m_shellLifeTime
+		));
+	}	
 }
 
 const void Weapon::spawnSmoke()
@@ -332,18 +335,21 @@ void Weapon::updateBullets(float deltaTime)
 
 void Weapon::updateShells(float deltaTime)
 {
-	for (auto it = this->m_shells.begin(); it != this->m_shells.end();)
+	if (this->m_showShells)
 	{
-		if (!it->isAlive())
+		for (auto it = this->m_shells.begin(); it != this->m_shells.end();)
 		{
-			it = this->m_shells.erase(it);
+			if (!it->isAlive())
+			{
+				it = this->m_shells.erase(it);
+			}
+			else
+			{
+				it->update(deltaTime);
+				++it;
+			}
 		}
-		else
-		{
-			it->update(deltaTime);
-			++it;
-		}
-	}
+	}	
 }
 
 void Weapon::updateSmokeParticles(float deltaTime)
@@ -373,8 +379,9 @@ void Weapon::renderBullets(sf::RenderWindow* target)
 
 void Weapon::renderShells(sf::RenderWindow* target)
 {
-	for (auto& shell : this->m_shells)
-		shell.render(target);
+	if (this->m_showShells)
+		for (auto& shell : this->m_shells)
+			shell.render(target);
 }
 
 void Weapon::renderSmokeParticles(sf::RenderWindow* target)

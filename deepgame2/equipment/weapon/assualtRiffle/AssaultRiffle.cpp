@@ -10,7 +10,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_recoil = 6.8f;
 	this->m_bulletSpeed = 10000;
 	this->m_fireRange = 5000;
-	this->m_viewRange = this->m_fireRange;
+	this->m_viewRange = 1600; // TEMP
 	this->m_capacity = 30;
 	this->m_ammo = 90;
 	this->m_magazine = this->m_capacity;
@@ -20,6 +20,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_singleShot = false;
 	this->m_showSmoke = true;
 	this->m_showFlash = true;
+	this->m_showShells = true;
 	this->m_dynamicAccuracy = true;
 
 	this->m_shotFrameCount = 10;
@@ -46,7 +47,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_particleInitialScale = { 0.06f, 0.06f };
 	this->m_particleMaxScale = {0.1f, 0.1f};
 	this->m_particleRotationSpeed = 55;
-	this->m_particleInitialAlpha = 100;
+	this->m_particleInitialAlpha = 150;
 	this->m_particleSpeed = 50;
 	this->m_particleAcceleration = 1.0f;
 	this->m_particleUpwardForce = 1.0f;
