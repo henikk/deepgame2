@@ -71,7 +71,11 @@ void Game::UpdateView(float deltaTime)
 		this->view.update(sf::Vector2f(mousePos.x + this->player.getPosition().x + player.getSize().x / 2.0f,
 			mousePos.y + this->player.getPosition().y + player.getSize().y / 2.0f), deltaTime);
 	}
+	else
+	{
+		this->view.update(sf::Vector2f(this->player.getPosition().x + player.getSize().x / 2.0f,
+			this->player.getPosition().y + player.getSize().y / 2.0f), deltaTime);
+	}
 	
 	this->m_window.GetWindow()->setView(this->view.getView());
 }
-
