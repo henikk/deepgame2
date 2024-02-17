@@ -682,21 +682,6 @@
     <Image Include="textures\particles\smoke.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="textures\particles\flash1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="textures\particles\flash5.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="textures\particles\flash2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="textures\particles\flash3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="textures\particles\flash4.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="textures\particles\flash_sheet.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -710,6 +695,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="textures\cursor\arrow3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\assault_shell.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -1,7 +1,7 @@
 #include "AssaultRiffle.h"
 
-AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds)
-	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToParticleTexture, _pathsToSounds)
+AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToShellTexture, std::vector<std::string> _pathsToSounds)
+	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToShellTexture, _pathsToSounds)
 {
 	this->m_damage = 15;
 	this->m_maxAccuracy = 99;
@@ -26,11 +26,22 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_reloadFrameCount = 10;
 	this->m_frame = sf::IntRect(0, 0, 128, 48);
 
-	this->m_barrelOffset = sf::Vector2f(86.0f, 7.0f);
 	this->m_gunOffset = sf::Vector2f(0.0f, 35.0f);
+	this->m_barrelOffset = sf::Vector2f(86.0f, 7.0f);
+	this->m_ejectionPortOffset = { 43.0f, 0.0f };
+
+	this->m_shellColor = sf::Color::White;
+	this->m_shellTexture.loadFromFile(this->m_pathToShellTexture);
+	this->m_shellInitialScale = { 1.0f, 1.0f };
+	this->m_shellMaxScale = { 1.0f, 1.0f };
+	this->m_shellInitialAlpha = 255;
+	this->m_shellRotationSpeed = 1500;
+	this->m_shellSpeed = 200;
+	this->m_shellDownwardForce = 250.0f;
+	this->m_shellAcceleration = 2.0f;
+	this->m_shellLifeTime = 2.0f;
 
 	this->m_particleColor = sf::Color::White;
-	this->m_particleSmokeTexture.loadFromFile(this->m_pathToParticleTexture);
 	this->m_particleInitialScale = { 0.06f, 0.06f };
 	this->m_particleMaxScale = {0.1f, 0.1f};
 	this->m_particleRotationSpeed = 55;

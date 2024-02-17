@@ -1,6 +1,6 @@
 #include "Particle.h"
 
-Particle::Particle(sf::Color _color, sf::Texture* _texture, sf::Vector2f _initialPosition, sf::Vector2f _initialScale, sf::Vector2f _maxScale, i8 _rotationSpeed, u8 _initialAlpha, u16 _initialSpeed, float _acceleration, float _initialAngle, float _upwardForce, float _lifeTime)
+Particle::Particle(sf::Color _color, sf::Texture* _texture, sf::Vector2f _initialPosition, sf::Vector2f _initialScale, sf::Vector2f _maxScale, u8 _initialAlpha, i16 _rotationSpeed, u16 _initialSpeed, float _acceleration, float _initialAngle, float _upwardForce, float _lifeTime)
 	: m_color(_color), m_texture(*_texture), m_initialPosition(_initialPosition), m_initialScale(_initialScale), m_maxScale(_maxScale), m_initialAlpha(_initialAlpha), m_rotationSpeed(_rotationSpeed), m_initialSpeed(_initialSpeed), m_speed(0.0f), m_acceleration(_acceleration), m_initialAngle(_initialAngle), m_upwardForce(_upwardForce), m_lifeTime(_lifeTime), m_isAlive(true)
 {
 	this->m_rotationSpeed = static_cast<float>(rand() % (this->m_rotationSpeed + 1) - static_cast<float>(this->m_rotationSpeed / 2));

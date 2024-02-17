@@ -7,7 +7,7 @@
 class AssaultRiffle: public Weapon
 {
 public:
-	AssaultRiffle(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds);
+	AssaultRiffle(std::string _pathToTexture, std::string _pathToShellTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds);
 	virtual ~AssaultRiffle() override;
 
 public:

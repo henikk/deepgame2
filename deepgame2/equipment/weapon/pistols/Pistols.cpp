@@ -1,7 +1,7 @@
 #include "Pistols.h"
 
-Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds)
-	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToParticleTexture, _pathsToSounds)
+Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToShellTexture, std::vector<std::string> _pathsToSounds)
+	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToShellTexture, _pathsToSounds)
 {
 	this->m_damage = 12;
 	this->m_maxAccuracy = 95;
@@ -28,9 +28,20 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 
 	this->m_gunOffset = { 0.0f, 35.0f };
 	this->m_barrelOffset = { 47.0f, 11.0f };
+	this->m_ejectionPortOffset = { 34.5f, 0.0f };
+
+	this->m_shellColor = sf::Color::White;
+	this->m_shellTexture.loadFromFile(this->m_pathToShellTexture);
+	this->m_shellInitialScale = { 1.0f, 1.0f };
+	this->m_shellMaxScale = { 1.0f, 1.0f };
+	this->m_shellInitialAlpha = 255;
+	this->m_shellRotationSpeed = 1500;
+	this->m_shellSpeed = 200;
+	this->m_shellDownwardForce = 250.0f;
+	this->m_shellAcceleration = 2.0f;
+	this->m_shellLifeTime = 2.0f;
 
 	this->m_particleColor = sf::Color::White;
-	this->m_particleSmokeTexture.loadFromFile(this->m_pathToParticleTexture);
 	this->m_particleInitialScale = { 0.03f, 0.03f };
 	this->m_particleMaxScale = { 0.085f, 0.085f };
 	this->m_particleRotationSpeed = 55;

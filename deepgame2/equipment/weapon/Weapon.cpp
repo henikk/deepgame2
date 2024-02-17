@@ -1,12 +1,13 @@
 #include "Weapon.h"
 
-Weapon::Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds)
-	: m_pathToTexture(_pathToTexture), m_pathToBulletTexture(_pathToBulletTexture), m_pathToParticleTexture(_pathToParticleTexture), m_pathsToSounds(_pathsToSounds), m_canShoot(true), m_isSelected(false)
+Weapon::Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToShellTexture, std::vector<std::string> _pathsToSounds)
+	: m_pathToTexture(_pathToTexture), m_pathToBulletTexture(_pathToBulletTexture), m_pathToShellTexture(_pathToShellTexture), m_pathsToSounds(_pathsToSounds), m_canShoot(true), m_isSelected(false)
 {
 	this->m_currentAccuracy = 100.0f; // Set maximum accuracy from the begining
+	this->m_particleSmokeTexture.loadFromFile("textures/particles/smoke.png");
 
-	initCursor();
-	initFlash();
+	this->initCursor();
+	this->initFlash();
 }
 
 Weapon::~Weapon(){}
@@ -38,6 +39,7 @@ void Weapon::Shoot()
 				}
 				this->m_magazine--;
 
+				this->spawnShell();
 				this->makeShotSound();
 				this->showFlash();
 				this->decreaseAccuracy();
@@ -69,7 +71,6 @@ void Weapon::Reload()
 				this->m_magazine += this->m_ammo;
 				this->m_ammo = 0;
 			}
-
 		}
 	}
 }
@@ -83,6 +84,9 @@ void Weapon::AngleControl(const sf::RenderWindow* target)
 
 	this->m_barrelPosition = sf::Vector2f(this->m_position.x - this->m_gunOffset.x + std::cosf(this->m_angle) * this->m_barrelOffset.x,
 		this->m_position.y + this->m_gunOffset.y + std::sinf(this->m_angle) * this->m_barrelOffset.x);
+
+	this->m_ejectionPortPosition = sf::Vector2f(this->m_position.x - this->m_gunOffset.x + std::cosf(this->m_angle) * this->m_ejectionPortOffset.x,
+		this->m_position.y + this->m_gunOffset.y + std::sinf(this->m_angle) * this->m_ejectionPortOffset.x);
 
 	/* In case of emergency
 			this->m_barrelAngle = sf::Vector2f(this->m_position.x - this->m_gunOffset.x + std::cosf(this->m_angle) * this->m_barrelOffset.x,
@@ -139,6 +143,24 @@ void Weapon::decreaseAccuracy()
 		this->m_currentAccuracy = 0;
 	else
 		this->m_currentAccuracy -= this->m_recoil;
+}
+
+void Weapon::changeCursorOpacity()
+{
+	u8 cursorAlpha = static_cast<u8>(this->m_currentAccuracy * 2.55f);
+
+	this->m_topCursor.setColor(sf::Color(
+		this->m_cursorColor.r,
+		this->m_cursorColor.g,
+		this->m_cursorColor.b,
+		cursorAlpha
+	));
+	this->m_bottomCursor.setColor(sf::Color(
+		this->m_cursorColor.r,
+		this->m_cursorColor.g,
+		this->m_cursorColor.b,
+		cursorAlpha
+	));
 }
 
 const void Weapon::animateShot()
@@ -213,6 +235,24 @@ const void Weapon::spawnBullet()
 		this->m_damage, this->m_accuracyAngle, this->m_fireRange));
 }
 
+const void Weapon::spawnShell()
+{
+	this->m_shells.emplace_back(Particle(
+		this->m_shellColor,
+		&this->m_shellTexture,
+		this->m_ejectionPortPosition,
+		this->m_shellInitialScale,
+		this->m_shellMaxScale,
+		this->m_shellInitialAlpha,
+		this->m_shellRotationSpeed,
+		this->m_shellSpeed,
+		this->m_shellAcceleration,
+		-90.0f + rand() % (10 + 1) - static_cast<float>(10 / 2),
+		-this->m_shellDownwardForce,
+		this->m_shellLifeTime
+	));
+}
+
 const void Weapon::spawnSmoke()
 {
 	if (this->m_showSmoke)
@@ -245,17 +285,20 @@ const void Weapon::makeShotSound()
 
 void Weapon::initCursor()
 {
+	this->m_cursorColor = { 0, 252, 97 };
+	this->m_cursorScale = { 0.40f, 0.40f };
+
 	this->m_cursorTexture.loadFromFile("textures/cursor/arrow4.png");
 
 	this->m_topCursor.setTexture(this->m_cursorTexture);
-	this->m_topCursor.setScale({ 0.40f, 0.40f });
+	this->m_topCursor.setScale(this->m_cursorScale);
 	this->m_topCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, this->m_cursorTexture.getSize().y / 2.0f);
-	this->m_topCursor.setColor(sf::Color(0, 252, 97));
+	this->m_topCursor.setColor(this->m_cursorColor);
 
 	this->m_bottomCursor.setTexture(this->m_cursorTexture);
-	this->m_bottomCursor.setScale({ 0.40f, -0.40f });
+	this->m_bottomCursor.setScale({ this->m_cursorScale.x, -this->m_cursorScale.y });
 	this->m_bottomCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, this->m_cursorTexture.getSize().y / 2.0f);
-	this->m_bottomCursor.setColor(sf::Color(0, 252, 97));
+	this->m_bottomCursor.setColor(this->m_cursorColor);
 }
 
 void Weapon::initFlash()
@@ -287,6 +330,22 @@ void Weapon::updateBullets(float deltaTime)
 	}
 }
 
+void Weapon::updateShells(float deltaTime)
+{
+	for (auto it = this->m_shells.begin(); it != this->m_shells.end();)
+	{
+		if (!it->isAlive())
+		{
+			it = this->m_shells.erase(it);
+		}
+		else
+		{
+			it->update(deltaTime);
+			++it;
+		}
+	}
+}
+
 void Weapon::updateSmokeParticles(float deltaTime)
 {
 	if (this->m_showSmoke)
@@ -306,6 +365,45 @@ void Weapon::updateSmokeParticles(float deltaTime)
 	}
 }
 
+void Weapon::renderBullets(sf::RenderWindow* target)
+{
+	for (auto& bullet : this->m_bullets)
+		bullet.render(target);
+}
+
+void Weapon::renderShells(sf::RenderWindow* target)
+{
+	for (auto& shell : this->m_shells)
+		shell.render(target);
+}
+
+void Weapon::renderSmokeParticles(sf::RenderWindow* target)
+{
+	if (this->m_showSmoke)
+		for (auto& particle : this->m_shotSmokeArray)
+			particle.render(target);
+}
+
+void Weapon::renderFlashes(sf::RenderWindow* target)
+{
+	if (this->m_showFlash && this->m_isFlashShown)
+	{
+		target->draw(this->m_flashSprite);
+
+		if (this->m_flashClock.getElapsedTime().asSeconds() >= 0.03f)
+		{
+			this->m_isFlashShown = false;
+			this->m_flashClock.restart();
+		}
+	}
+}
+
+void Weapon::renderCursor(sf::RenderWindow* target)
+{
+	target->draw(this->m_topCursor);
+	target->draw(this->m_bottomCursor);
+}
+
 void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 {
 	this->m_body.setPosition(this->m_position + this->m_gunOffset);
@@ -318,8 +416,6 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 	if (this->m_magazine <= 0)
 		this->m_emptyAnimating = true;
 
-	this->updateBullets(deltaTime);
-	this->updateSmokeParticles(deltaTime);
 
 	if (this->m_isSelected)
 	{
@@ -329,19 +425,21 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 		this->updateInput(target);
 	}
 	this->updateTime();
+	this->updateBullets(deltaTime);
+	this->updateShells(deltaTime);
+	this->updateSmokeParticles(deltaTime);
+
 	this->increaseAccuracy(deltaTime);
+	this->changeCursorOpacity();
 }
 
 void Weapon::updateInput(const sf::RenderWindow* target)
 {
 	sf::Vector2f mouseWorldPosition = target->mapPixelToCoords(sf::Mouse::getPosition(*target));
 
-	if (this->m_isSelected)
-	{
-		float distanceBetweenCursors = (100.0f - this->m_currentAccuracy) / 2.0f;
-		this->m_topCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y - distanceBetweenCursors + 1));
-		this->m_bottomCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y + distanceBetweenCursors));
-	}
+	this->m_distanceBetweenCursors = (100.0f - this->m_currentAccuracy) / 2.0f;
+	this->m_topCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y - this->m_distanceBetweenCursors + 1));
+	this->m_bottomCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y + this->m_distanceBetweenCursors));
 
 	// Keys binding
 	if (this->m_singleShot)
@@ -377,30 +475,15 @@ void Weapon::updateTime()
 
 void Weapon::render(sf::RenderWindow* target)
 {
+	this->renderBullets(target);
+	this->renderSmokeParticles(target);
+	this->renderFlashes(target);
+
 	if (this->m_isSelected)
 	{
 		target->setTitle("Magazine: " + std::to_string(this->m_magazine) + " | Accuracy: " + std::to_string(int(this->m_currentAccuracy))); // [DEBUG]
-
 		target->draw(this->m_body);
-		target->draw(this->m_topCursor); // DEBUG
-		target->draw(this->m_bottomCursor); // DEBUG
-	}
-
-	if (this->m_showSmoke)
-		for (auto& particle : this->m_shotSmokeArray)
-			particle.render(target);
-
-	for (auto& bullet : this->m_bullets)
-		bullet.render(target);
-	
-	if (this->m_showFlash && this->m_isFlashShown)
-	{
-		target->draw(this->m_flashSprite);
-		
-		if (this->m_flashClock.getElapsedTime().asSeconds() >= 0.03f)
-		{
-			this->m_isFlashShown = false;
-			this->m_flashClock.restart();
-		}
-	}
+		this->renderCursor(target);
+	}	
+	this->renderShells(target); // [TEMP]
 }

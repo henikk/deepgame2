@@ -20,22 +20,22 @@ private:
     Pistols pistol
     {
         "textures/weapon/pistol/Pistol - Second version sprite sheets (80x48)/pistol-all.png",
-        "textures/weapon/shot/bullet.png",
-        "textures/particles/smoke.png",
+        "textures/weapon/shot/bullet2.png",
+        "textures/particles/pistol_shell.png",
         {"sounds/shot/pistol/shot1.wav", "sounds/shot/assault/shot1[AK-74U].wav"}
     };
     AssaultRiffle assaultRiffle
     {
         "textures/weapon/assault/shootV2.png",
-        "textures/weapon/shot/bullet.png",
-        "textures/particles/smoke.png",
+        "textures/weapon/shot/bullet2.png",
+        "textures/particles/assault_shell.png",
         {"sounds/shot/assault/shot1[AK-74U].wav"}
     };
     ShotGuns shotgun
     {
         "textures/weapon/shotgun/shoot.png",
-        "textures/weapon/shot/bullet.png",
-        "textures/particles/smoke.png",
+        "textures/weapon/shot/bullet2.png",
+        "textures/particles/shotgun_shell_red.png",
         {"sounds/shot/pistol/shot1.wav"}
     };
     

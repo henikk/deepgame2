@@ -21,6 +21,7 @@ private:
 private:
 	std::vector<Bullet> m_bullets;
 	std::vector<Particle> m_shotSmokeArray;
+	std::vector<Particle> m_shells;
 
 private:
 	bool m_hasShot;
@@ -46,6 +47,9 @@ private:
 	sf::Sprite m_flashSprite;
 
 private:
+	float m_distanceBetweenCursors;
+	sf::Color m_cursorColor;
+	sf::Vector2f m_cursorScale;
 	sf::Sprite m_topCursor;
 	sf::Sprite m_bottomCursor;
 	sf::Texture m_cursorTexture;
@@ -55,15 +59,21 @@ private:
 	float m_accuracyAngle;
 
 private:
+	sf::Vector2f m_barrelPosition;
+	sf::Vector2f m_ejectionPortPosition;
+
+private:
 	float addRandToAngle() const;
 	void increaseAccuracy(float deltaTime);
 	void decreaseAccuracy();
+	void changeCursorOpacity();
 
 	const void animateShot();
 	const void animateEmpty();
 	const void animateReload();
 
 	const void spawnBullet();
+	const void spawnShell();
 	const void spawnSmoke();
 	const void showFlash();
 	const void makeShotSound();
@@ -74,7 +84,14 @@ private:
 
 private:
 	void updateBullets(float deltaTime);
+	void updateShells(float deltaTime);
 	void updateSmokeParticles(float deltaTime);
+
+	void renderBullets(sf::RenderWindow* target);
+	void renderShells(sf::RenderWindow* target);
+	void renderSmokeParticles(sf::RenderWindow* target);
+	void renderFlashes(sf::RenderWindow* target);
+	void renderCursor(sf::RenderWindow* target);
 		
 protected:
 	sf::Texture m_texture;
@@ -82,8 +99,8 @@ protected:
 	sf::RectangleShape m_body;
 	sf::Vector2f m_gunOffset;
 	sf::Vector2f m_barrelOffset;
+	sf::Vector2f m_ejectionPortOffset;
 	sf::Vector2f m_position;
-	sf::Vector2f m_barrelPosition;
 	float m_angle;
 
 protected:
@@ -108,16 +125,28 @@ protected:
 
 protected:
 	sf::Color m_particleColor;
-	std::string m_pathToParticleTexture;
 	sf::Texture m_particleSmokeTexture;	
 	sf::Vector2f m_particleInitialScale;
 	sf::Vector2f m_particleMaxScale;
-	i8 m_particleRotationSpeed;
 	u8 m_particleInitialAlpha;
+	i16 m_particleRotationSpeed;
 	u16 m_particleSpeed;
 	float m_particleAcceleration;
 	float m_particleUpwardForce;
 	float m_particleLifeTime;
+
+protected:
+	std::string m_pathToShellTexture;
+	sf::Color m_shellColor;
+	sf::Texture m_shellTexture;
+	sf::Vector2f m_shellInitialScale;
+	sf::Vector2f m_shellMaxScale;
+	u8 m_shellInitialAlpha;
+	i16 m_shellRotationSpeed;
+	u16 m_shellSpeed;
+	float m_shellAcceleration;
+	float m_shellDownwardForce;
+	float m_shellLifeTime;
 
 protected:
 	std::vector<std::string> m_pathsToSounds;
@@ -134,7 +163,7 @@ protected:
 	bool m_playerLookDirection;
 
 public:
-	Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds);
+	Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToShellexture, std::vector<std::string> _pathsToSounds);
 	virtual ~Weapon() = 0;
 	
 public:

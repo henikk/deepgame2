@@ -7,7 +7,7 @@
 class ShotGuns : public Weapon
 {
 public:
-	ShotGuns(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToParticle, std::vector<std::string> _pathsToSounds);
+	ShotGuns(std::string _pathToTexture, std::string _pathToShellTexture, std::string _pathToParticleTexture, std::vector<std::string> _pathsToSounds);
 	virtual ~ShotGuns() override;
 
 public:

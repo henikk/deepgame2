@@ -186,11 +186,7 @@
     <Image Include="textures\enemy\Skeleton Idle.png" />
     <Image Include="textures\enemy\Skeleton React.png" />
     <Image Include="textures\enemy\Skeleton Walk.png" />
-    <Image Include="textures\particles\flash1.png" />
-    <Image Include="textures\particles\flash2.png" />
-    <Image Include="textures\particles\flash3.png" />
-    <Image Include="textures\particles\flash4.png" />
-    <Image Include="textures\particles\flash5.png" />
+    <Image Include="textures\particles\assault_shell.png" />
     <Image Include="textures\particles\flash_sheet.png" />
     <Image Include="textures\particles\smoke.png" />
     <Image Include="textures\weapon\assault\empty.png" />

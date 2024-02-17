@@ -25,8 +25,8 @@ private:
 	sf::Vector2f m_initialPosition;
 	sf::Vector2f m_initialScale;
 	sf::Vector2f m_maxScale;
-	i8 m_rotationSpeed;
 	u8 m_initialAlpha;
+	i16 m_rotationSpeed;
 	u16 m_initialSpeed;
 	u16 m_speed;
 	float m_acceleration;
@@ -52,8 +52,8 @@ public:
 		sf::Vector2f _initialPosition,
 		sf::Vector2f _initialScale,
 		sf::Vector2f _maxScale,
-		i8 _rotationSpeed,
 		u8 _initialAlpha,
+		i16 _rotationSpeed,
 		u16 _initialSpeed,
 		float _acceleration,
 		float _initialAngle,
