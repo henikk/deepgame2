@@ -1,6 +1,6 @@
 ﻿#include "Game.h"
 
-Game::Game()
+Game::Game() : deltaTime(0.0f), scopeFrom(0.85f)
 {
 	this->m_window.GetWindow()->setView(view.getView());
 	
@@ -65,11 +65,19 @@ void Game::UpdateView(float deltaTime)
 
 	if (mousePos.x >= 0 && mousePos.x <= windowSize.x && mousePos.y >= 0 && mousePos.y <= windowSize.y)
 	{
-		mousePos.x = map(mousePos.x, 0, this->m_window.GetWindow()->getSize().x, -(viewRange) / 2.0f, viewRange / 2.0f);
-		mousePos.y = map(mousePos.y, 0, this->m_window.GetWindow()->getSize().y, -(viewRange * (16 / 9)) / 2.0f, (viewRange * (16 / 9)) / 2.0f);
+		if (mousePos.x >= windowSize.x * scopeFrom || mousePos.x <= windowSize.x * (1.0f - scopeFrom) || mousePos.y >= windowSize.y * scopeFrom || mousePos.y <= windowSize.y * (1.0f - scopeFrom))
+		{
+			mousePos.x = map(mousePos.x, 0, this->m_window.GetWindow()->getSize().x, -(viewRange) / 2.0f, viewRange / 2.0f);
+			mousePos.y = map(mousePos.y, 0, this->m_window.GetWindow()->getSize().y, -(viewRange * (16 / 9)) / 2.0f, (viewRange * (16 / 9)) / 2.0f);
 
-		this->view.update(sf::Vector2f(mousePos.x + this->player.getPosition().x + player.getSize().x / 2.0f,
-			mousePos.y + this->player.getPosition().y + player.getSize().y / 2.0f), deltaTime);
+			this->view.update(sf::Vector2f(mousePos.x + this->player.getPosition().x + player.getSize().x / 2.0f,
+				mousePos.y + this->player.getPosition().y + player.getSize().y / 2.0f), deltaTime);
+		}
+		else
+		{
+			this->view.update(sf::Vector2f(this->player.getPosition().x + player.getSize().x / 2.0f,
+				this->player.getPosition().y + player.getSize().y / 2.0f), deltaTime);
+		}
 	}
 	else
 	{

@@ -6,8 +6,8 @@ Bullet::Bullet(sf::Texture* _texture, sf::Vector2f _initialPostition, u16 _speed
 {
 	_texture->setSmooth(true);
 	this->m_body.setTexture(*_texture);
-	this->m_body.setScale(sf::Vector2f(2.65f, 0.65f));
-	this->m_body.setColor(sf::Color(255, 210, 0, 128));
+	this->m_body.setScale(sf::Vector2f(2.65f, 0.35f));
+	this->m_body.setColor(sf::Color::Yellow);
 	this->m_body.setOrigin(sf::Vector2f(0.0f, this->m_texture.getSize().y / 2));
 	this->m_body.setPosition(this->m_initialPosition);
 	this->m_body.setRotation(this->m_angle);

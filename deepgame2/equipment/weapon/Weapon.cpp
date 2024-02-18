@@ -223,7 +223,7 @@ const void Weapon::showFlash()
 		this->m_flashSprite.setTextureRect(this->m_flashFrame);
 		this->m_flashSprite.setPosition(this->m_barrelPosition);
 		this->m_flashSprite.setRotation(this->m_accuracyAngle);
-		this->m_flashSprite.setColor(sf::Color(255, 230, 200, rand() % 201 + 55));
+		this->m_flashSprite.setColor(sf::Color(255, 230, 200, rand() % 171 + 30));
 
 		this->m_isFlashShown = true;
 	}
@@ -292,15 +292,14 @@ void Weapon::initCursor()
 	this->m_cursorScale = { 0.40f, 0.40f };
 
 	this->m_cursorTexture.loadFromFile("textures/cursor/arrow4.png");
-
 	this->m_topCursor.setTexture(this->m_cursorTexture);
 	this->m_topCursor.setScale(this->m_cursorScale);
-	this->m_topCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, this->m_cursorTexture.getSize().y / 2.0f);
+	this->m_topCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, 42.5f);
 	this->m_topCursor.setColor(this->m_cursorColor);
 
 	this->m_bottomCursor.setTexture(this->m_cursorTexture);
 	this->m_bottomCursor.setScale({ this->m_cursorScale.x, -this->m_cursorScale.y });
-	this->m_bottomCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, this->m_cursorTexture.getSize().y / 2.0f);
+	this->m_bottomCursor.setOrigin(this->m_cursorTexture.getSize().x / 2.0f, 42.5f);
 	this->m_bottomCursor.setColor(this->m_cursorColor);
 }
 
@@ -314,7 +313,7 @@ void Weapon::initFlash()
 	this->m_flashSprite.setTexture(this->m_flashTexture);
 	this->m_flashSprite.setTextureRect(this->m_flashFrame);
 	this->m_flashSprite.setOrigin({ 0.0f, this->m_flashTexture.getSize().y / 2.0f });
-	this->m_flashSprite.setScale({ 0.25f, 0.35f });
+	this->m_flashSprite.setScale({ 0.20f, 0.30f });
 }
 
 void Weapon::updateBullets(float deltaTime)
@@ -369,6 +368,15 @@ void Weapon::updateSmokeParticles(float deltaTime)
 			}
 		}
 	}
+}
+
+void Weapon::updateCursor(const sf::RenderWindow* target)
+{
+	sf::Vector2f mouseWorldPosition = target->mapPixelToCoords(sf::Mouse::getPosition(*target));
+
+	this->m_distanceBetweenCursors = (100.0f - this->m_currentAccuracy) / 2.0f;
+	this->m_topCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y - this->m_distanceBetweenCursors + 1));
+	this->m_bottomCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y + this->m_distanceBetweenCursors));
 }
 
 void Weapon::renderBullets(sf::RenderWindow* target)
@@ -442,12 +450,6 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 
 void Weapon::updateInput(const sf::RenderWindow* target)
 {
-	sf::Vector2f mouseWorldPosition = target->mapPixelToCoords(sf::Mouse::getPosition(*target));
-
-	this->m_distanceBetweenCursors = (100.0f - this->m_currentAccuracy) / 2.0f;
-	this->m_topCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y - this->m_distanceBetweenCursors + 1));
-	this->m_bottomCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y + this->m_distanceBetweenCursors));
-
 	// Keys binding
 	if (this->m_singleShot)
 	{
@@ -470,7 +472,8 @@ void Weapon::updateInput(const sf::RenderWindow* target)
 		this->Reload();
 	}
 
-	AngleControl(target);
+	this->AngleControl(target);
+	this->updateCursor(target);
 }
 
 void Weapon::updateTime()

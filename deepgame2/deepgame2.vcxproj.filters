@@ -700,6 +700,12 @@
     <Image Include="textures\particles\assault_shell.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="textures\particles\pistol_shell.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\shotgun_shell_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="external\include\SFML\Audio\SoundFileFactory.inl">

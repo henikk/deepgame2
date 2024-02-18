@@ -5,10 +5,11 @@ Window::~Window() { this->destroyWindow(); }
 
 void Window::initWindow()
 {
+	this->m_title = "project deep";
+
     this->m_videoMode.width = 1600;
     this->m_videoMode.height = 900;
     this->m_fpsLimit = 60;
-	this->m_title = "project deep";
 
     this->m_window = new sf::RenderWindow(this->m_videoMode, this->m_title, sf::Style::Close);
     this->m_window->setFramerateLimit(this->m_fpsLimit);	

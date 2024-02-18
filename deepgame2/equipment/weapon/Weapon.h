@@ -55,6 +55,7 @@ private:
 	sf::Texture m_cursorTexture;
 
 private:
+	//u16 m_scopeFromDistance;
 	float m_currentAccuracy;
 	float m_accuracyAngle;
 
@@ -86,6 +87,7 @@ private:
 	void updateBullets(float deltaTime);
 	void updateShells(float deltaTime);
 	void updateSmokeParticles(float deltaTime);
+	void updateCursor(const sf::RenderWindow* target);
 
 	void renderBullets(sf::RenderWindow* target);
 	void renderShells(sf::RenderWindow* target);

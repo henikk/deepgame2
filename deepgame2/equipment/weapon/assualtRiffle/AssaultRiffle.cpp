@@ -4,10 +4,10 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToShellTexture, _pathsToSounds)
 {
 	this->m_damage = 15;
-	this->m_maxAccuracy = 99;
+	this->m_maxAccuracy = 96;
 	this->m_bulletsPerShot = 1;
-	this->m_accuracyRecoverySpeed = 42.0f;
-	this->m_recoil = 6.8f;
+	this->m_accuracyRecoverySpeed = 40.0f;
+	this->m_recoil = 7.2f;
 	this->m_bulletSpeed = 10000;
 	this->m_fireRange = 5000;
 	this->m_viewRange = 1600; // TEMP
@@ -51,7 +51,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_particleSpeed = 50;
 	this->m_particleAcceleration = 1.0f;
 	this->m_particleUpwardForce = 1.0f;
-	this->m_particleLifeTime = 0.3f;
+	this->m_particleLifeTime = 0.5f;
 
 	// Move this to Weapon.cpp
 	this->m_texture.loadFromFile(_pathToTexture);
