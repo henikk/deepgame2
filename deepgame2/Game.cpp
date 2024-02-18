@@ -1,6 +1,6 @@
 ﻿#include "Game.h"
 
-Game::Game() : deltaTime(0.0f), scopeFrom(0.85f)
+Game::Game() : deltaTime(0.0f), scopeFrom(0.80f)
 {
 	this->m_window.GetWindow()->setView(view.getView());
 	
@@ -9,10 +9,7 @@ Game::Game() : deltaTime(0.0f), scopeFrom(0.85f)
 		this->m_window.GetWindow()->getSize().y / 2), *this->m_window.GetWindow());
 }
 
-Game::~Game()
-{
-
-}
+Game::~Game() {}
 
 Window* Game::GetWindow()
 {

@@ -12,6 +12,7 @@ void Window::initWindow()
     this->m_fpsLimit = 60;
 
     this->m_window = new sf::RenderWindow(this->m_videoMode, this->m_title, sf::Style::Close);
+	
     this->m_window->setFramerateLimit(this->m_fpsLimit);	
 	this->m_window->setMouseCursorVisible(false);
 	this->m_window->setVerticalSyncEnabled(true);
