@@ -16,6 +16,7 @@ private:
     Window m_window;
 
 private:
+    float initialScopeFrom;
     float scopeFrom; // From which coords camera will follow cursor. Variable must be initialized as percent from window size - [0.8f (80%)]
 
 private:
