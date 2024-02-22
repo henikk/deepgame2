@@ -2,8 +2,6 @@
 #define BULLET_H
 
 #include <SFML/Graphics.hpp>
-#include <string>
-#include <vector>
 
 #include "../../types.h"
 

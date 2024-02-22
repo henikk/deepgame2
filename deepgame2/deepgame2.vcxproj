@@ -39,6 +39,7 @@
     <ClCompile Include="equipment\weapon\shotguns\ShotGuns.cpp" />
     <ClCompile Include="equipment\weapon\Weapon.cpp" />
     <ClCompile Include="HUD\WeaponHUD.cpp" />
+    <ClCompile Include="equipment\weapon\Rocket.cpp" />
     <ClCompile Include="View.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="FX\Particle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="equipment\weapon\shotguns\ShotGuns.h" />
+    <ClInclude Include="equipment\weapon\Rocket.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="equipment\weapon\Weapon.h" />
     <ClInclude Include="HUD\WeaponHUD.h" />
@@ -180,6 +182,7 @@
     <Image Include="textures\cursor\arrow2.png" />
     <Image Include="textures\cursor\arrow3.png" />
     <Image Include="textures\cursor\arrow4.png" />
+    <Image Include="textures\cursor\line.png" />
     <Image Include="textures\enemy\Skeleton Attack.png" />
     <Image Include="textures\enemy\Skeleton Dead.png" />
     <Image Include="textures\enemy\Skeleton Hit.png" />

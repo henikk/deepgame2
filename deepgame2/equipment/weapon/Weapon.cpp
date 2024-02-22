@@ -32,10 +32,22 @@ void Weapon::Shoot()
 						this->m_accuracyAngle = this->addRandToAngle();
 					else
 						this->m_accuracyAngle = 180.0f - this->addRandToAngle();
-
-					this->spawnBullet();
-					this->spawnSmoke();
+										
+					switch (this->m_ammoType)
+					{
+					case Weapon::AmmoType::BULLETS:
+						this->spawnBullet();
+						break;
+					case Weapon::AmmoType::ROCKETS:
+						this->spawnRocket();
+						break;
+					case Weapon::AmmoType::GRENADES:
+						break;
+					default:
+						break;
+					}
 					
+					this->spawnSmoke();
 				}
 				this->m_magazine--;
 
@@ -88,11 +100,6 @@ void Weapon::AngleControl(const sf::RenderWindow* target)
 	this->m_ejectionPortPosition = sf::Vector2f(this->m_position.x - this->m_gunOffset.x + std::cosf(this->m_angle) * this->m_ejectionPortOffset.x,
 		this->m_position.y + this->m_gunOffset.y + std::sinf(this->m_angle) * this->m_ejectionPortOffset.x);
 
-	/* In case of emergency
-			this->m_barrelAngle = sf::Vector2f(this->m_position.x - this->m_gunOffset.x + std::cosf(this->m_angle) * this->m_barrelOffset.x,
-		this->m_position.y + this->m_gunOffset.y - this->m_barrelOffset.y + std::sinf(this->m_angle) * this->m_barrelOffset.x);
-	*/
-
 	this->m_angle = this->m_angle * 180.0f / 3.14f;
 
 	if (worldPos.x >= this->m_position.x)// if player looking right
@@ -109,7 +116,7 @@ void Weapon::AngleControl(const sf::RenderWindow* target)
 		this->m_body.setScale({ -1.0f, 1.0f });
 		this->m_angle = 180.0f - this->m_angle;
 		this->m_body.setRotation(-this->m_angle);
-	}		
+	}			
 }
 
 float Weapon::addRandToAngle() const
@@ -235,6 +242,12 @@ const void Weapon::spawnBullet()
 		this->m_damage, this->m_accuracyAngle, this->m_fireRange));
 }
 
+const void Weapon::spawnRocket()
+{
+	this->m_rockets.emplace_back(Rocket(&this->m_bulletTexture, &this->m_particleSmokeTexture, this->m_barrelPosition, this->m_bulletSpeed,
+		this->m_damage, this->m_accuracyAngle, this->m_fireRange));
+}
+
 const void Weapon::spawnShell()
 {
 	if (this->m_showShells)
@@ -268,8 +281,8 @@ const void Weapon::spawnSmoke()
 			this->m_barrelPosition,
 			this->m_particleInitialScale,
 			this->m_particleMaxScale,
-			this->m_particleRotationSpeed,
 			this->m_particleInitialAlpha,
+			this->m_particleRotationSpeed,
 			this->m_particleSpeed,
 			this->m_particleAcceleration,
 			this->m_accuracyAngle + rand() % (smokeAngle + 1) - static_cast<float>(smokeAngle / 2),
@@ -284,6 +297,33 @@ const void Weapon::makeShotSound()
 	this->m_soundBuffer.loadFromFile(this->m_pathsToSounds[0]);
 	this->m_shotSound.setBuffer(this->m_soundBuffer);
 	this->m_shotSound.play();
+}
+
+void loadConfig(const std::string& pathToFile) {
+	std::ifstream file(pathToFile);
+	if (!file.is_open()) 
+	{
+		std::cerr << "Unable to open config file: " << pathToFile << std::endl;
+		return;
+	}
+
+	std::unordered_map<std::string, std::string> configMap;
+	std::string line;
+	while (std::getline(file, line)) {
+
+		size_t delimiterPos = line.find('=');
+		if (delimiterPos != std::string::npos) 
+		{
+			std::string key = line.substr(0, delimiterPos);
+			std::string value = line.substr(delimiterPos + 1);
+			configMap[key] = value;
+		}
+	}
+
+	//// Завантаження значень у клас з асоціативного масиву
+	//if (configMap.count("varInt")) varInt = std::stoi(configMap["varInt"]);
+	//if (configMap.count("varDouble")) varDouble = std::stod(configMap["varDouble"]);
+	//if (configMap.count("varChar")) varChar = configMap["varChar"][0];
 }
 
 void Weapon::initCursor()
@@ -323,6 +363,22 @@ void Weapon::updateBullets(float deltaTime)
 		if (!it->isAlive())
 		{
 			it = this->m_bullets.erase(it);
+		}
+		else
+		{
+			it->update(deltaTime);
+			++it;
+		}
+	}
+}
+
+void Weapon::updateRockets(float deltaTime)
+{
+	for (auto it = this->m_rockets.begin(); it != this->m_rockets.end();)
+	{
+		if (!it->isAlive() && !it->isParticleAlive())
+		{
+			it = this->m_rockets.erase(it);
 		}
 		else
 		{
@@ -375,14 +431,23 @@ void Weapon::updateCursor(const sf::RenderWindow* target)
 	sf::Vector2f mouseWorldPosition = target->mapPixelToCoords(sf::Mouse::getPosition(*target));
 
 	this->m_distanceBetweenCursors = (100.0f - this->m_currentAccuracy) / 2.0f;
+
 	this->m_topCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y - this->m_distanceBetweenCursors + 1));
 	this->m_bottomCursor.setPosition(mouseWorldPosition.x, (mouseWorldPosition.y + this->m_distanceBetweenCursors));
+
+	this->changeCursorOpacity();
 }
 
 void Weapon::renderBullets(sf::RenderWindow* target)
 {
 	for (auto& bullet : this->m_bullets)
 		bullet.render(target);
+}
+
+void Weapon::renderRockets(sf::RenderWindow* target)
+{
+	for (auto& rocket : this->m_rockets)
+		rocket.render(target);
 }
 
 void Weapon::renderShells(sf::RenderWindow* target)
@@ -441,11 +506,11 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 	}
 	this->updateTime();
 	this->updateBullets(deltaTime);
+	this->updateRockets(deltaTime);
 	this->updateShells(deltaTime);
 	this->updateSmokeParticles(deltaTime);
 
 	this->increaseAccuracy(deltaTime);
-	this->changeCursorOpacity();
 }
 
 void Weapon::updateInput(const sf::RenderWindow* target)
@@ -453,21 +518,21 @@ void Weapon::updateInput(const sf::RenderWindow* target)
 	// Keys binding
 	if (this->m_singleShot)
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !this->m_hasShot)
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !this->m_hasShot || sf::Joystick::isButtonPressed(0, 7) && !this->m_hasShot) // Right shifter
 		{
 			this->Shoot();
 		}
-		if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (!sf::Mouse::isButtonPressed(sf::Mouse::Left) && !sf::Joystick::isButtonPressed(0, 7)) // Right shift
 		{
 			this->m_hasShot = false;
 		}
 	}
-	else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !this->m_singleShot)
+	else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !this->m_singleShot || sf::Joystick::isButtonPressed(0, 7) && !this->m_singleShot) // Right shifter
 	{
 		this->Shoot();
 	}
-	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) || sf::Joystick::isButtonPressed(0, 2) || sf::Joystick::isButtonPressed(0, 7) && this->m_magazine <= 0) // "circle" button or right shifter
 	{
 		this->Reload();
 	}
@@ -486,6 +551,7 @@ void Weapon::updateTime()
 void Weapon::render(sf::RenderWindow* target)
 {
 	this->renderBullets(target);
+	this->renderRockets(target);
 	this->renderSmokeParticles(target);
 	this->renderFlashes(target);
 
@@ -497,5 +563,5 @@ void Weapon::render(sf::RenderWindow* target)
 
 		this->renderCursor(target);
 	}	
-	this->renderShells(target); // [TEMP]
+	this->renderShells(target); // [TEMP] or not
 }

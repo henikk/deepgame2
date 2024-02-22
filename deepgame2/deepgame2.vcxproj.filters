@@ -81,6 +81,9 @@
     <ClCompile Include="levels\Level.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="equipment\weapon\Rocket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -455,6 +458,9 @@
     <ClInclude Include="levels\Level.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="equipment\weapon\Rocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\weapon\pistol\Pistol - Second version sprite sheets (80x48)\pistol-all.png">
@@ -704,6 +710,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="textures\particles\shotgun_shell_red.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\cursor\line.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

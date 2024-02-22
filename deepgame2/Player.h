@@ -15,6 +15,10 @@ private:
     sf::RectangleShape m_colider;
     sf::Texture m_texture;
     sf::Vector2f m_velocity;
+
+private:
+    bool m_previousButtonState;
+    i8 m_weaponIterator;
         
 private:
     Pistols pistol

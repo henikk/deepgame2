@@ -5,10 +5,13 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <string>
+#include <unordered_map>
+#include <fstream>
 
 #include "../../types.h"
 #include "../../FX/Particle.h"
 #include "Bullet.h"
+#include "Rocket.h"
 
 class Weapon
 {
@@ -20,6 +23,7 @@ private:
 
 private:
 	std::vector<Bullet> m_bullets;
+	std::vector<Rocket> m_rockets;
 	std::vector<Particle> m_shotSmokeArray;
 	std::vector<Particle> m_shells;
 
@@ -30,6 +34,7 @@ private:
 	bool m_emptyAnimating;
 	bool m_reloadAnimating;
 	bool m_isFlashShown;
+	bool m_playerLookDirection;
 
 private:
 	sf::Clock m_shootClock;
@@ -55,13 +60,16 @@ private:
 	sf::Texture m_cursorTexture;
 
 private:
-	//u16 m_scopeFromDistance;
 	float m_currentAccuracy;
 	float m_accuracyAngle;
 
 private:
 	sf::Vector2f m_barrelPosition;
 	sf::Vector2f m_ejectionPortPosition;
+
+private:
+	std::vector<std::string> m_pathsToSounds;
+	sf::SoundBuffer m_soundBuffer;
 
 private:
 	float addRandToAngle() const;
@@ -74,22 +82,27 @@ private:
 	const void animateReload();
 
 	const void spawnBullet();
+	const void spawnRocket();	
 	const void spawnShell();
 	const void spawnSmoke();
 	const void showFlash();
 	const void makeShotSound();
 
 private:
+	void loadConfig(const std::string& pathTofile);
+
 	void initCursor();
 	void initFlash();
 
 private:
 	void updateBullets(float deltaTime);
+	void updateRockets(float deltaTime);
 	void updateShells(float deltaTime);
 	void updateSmokeParticles(float deltaTime);
 	void updateCursor(const sf::RenderWindow* target);
 
 	void renderBullets(sf::RenderWindow* target);
+	void renderRockets(sf::RenderWindow* target);
 	void renderShells(sf::RenderWindow* target);
 	void renderSmokeParticles(sf::RenderWindow* target);
 	void renderFlashes(sf::RenderWindow* target);
@@ -152,8 +165,6 @@ protected:
 	float m_shellLifeTime;
 
 protected:
-	std::vector<std::string> m_pathsToSounds;
-	sf::SoundBuffer m_soundBuffer;
 	sf::Sound m_shotSound;
 
 protected:
@@ -164,7 +175,14 @@ protected:
 	bool m_showShells;
 	bool m_dynamicAccuracy;
 
-	bool m_playerLookDirection;
+protected:
+	u8 m_ammoType;
+	enum AmmoType
+	{
+		BULLETS,
+		ROCKETS,
+		GRENADES
+	};
 
 public:
 	Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToShellexture, std::vector<std::string> _pathsToSounds);

@@ -1,6 +1,6 @@
 ﻿#include "Game.h"
 
-Game::Game() : deltaTime(0.0f), scopeFrom(0.80f)
+Game::Game() : deltaTime(0.0f), scopeFrom(0.90f)
 {
 	this->m_window.GetWindow()->setView(view.getView());
 	this->initialScopeFrom = this->scopeFrom;
@@ -65,7 +65,11 @@ void Game::UpdateView(float deltaTime)
 	if (mousePos.x >= 0 && mousePos.x <= windowSize.x && mousePos.y >= 0 && mousePos.y <= windowSize.y)
 	{
 		// If mouse out of the viewRange
-		if (mousePos.x >= windowSize.x * this->scopeFrom || mousePos.x <= windowSize.x * (1.0f - this->scopeFrom) || mousePos.y >= windowSize.y * this->scopeFrom || mousePos.y <= windowSize.y * (1.0f - this->scopeFrom))
+		if (mousePos.x >= windowSize.x * this->scopeFrom ||
+			mousePos.x <= windowSize.x * (1.0f - this->scopeFrom) ||
+			mousePos.y >= windowSize.y * this->scopeFrom ||
+			mousePos.y <= windowSize.y * (1.0f - this->scopeFrom) ||
+			sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		{
 			this->scopeFrom = 0.55f;
 

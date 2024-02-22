@@ -4,11 +4,11 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	: Weapon(_pathToTexture, _pathToBulletTexture, _pathToShellTexture, _pathsToSounds)
 {
 	this->m_damage = 15;
-	this->m_maxAccuracy = 96;
+	this->m_maxAccuracy = 97;
 	this->m_bulletsPerShot = 1;
 	this->m_accuracyRecoverySpeed = 40.0f;
-	this->m_recoil = 7.2f;
-	this->m_bulletSpeed = 10000;
+	this->m_recoil = 6.8f;
+	this->m_bulletSpeed = 500; //10000
 	this->m_fireRange = 5000;
 	this->m_viewRange = 1600; // TEMP
 	this->m_capacity = 30;
@@ -22,6 +22,8 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_showFlash = true;
 	this->m_showShells = true;
 	this->m_dynamicAccuracy = true;
+
+	this->m_ammoType = AmmoType::ROCKETS;
 
 	this->m_shotFrameCount = 10;
 	this->m_emptyFrameCount = 8;
@@ -45,7 +47,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 
 	this->m_particleColor = sf::Color::White;
 	this->m_particleInitialScale = { 0.06f, 0.06f };
-	this->m_particleMaxScale = {0.1f, 0.1f};
+	this->m_particleMaxScale = {0.075f, 0.075f};
 	this->m_particleRotationSpeed = 55;
 	this->m_particleInitialAlpha = 150;
 	this->m_particleSpeed = 50;

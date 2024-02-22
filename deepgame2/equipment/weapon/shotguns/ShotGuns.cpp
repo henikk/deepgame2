@@ -23,6 +23,8 @@ ShotGuns::ShotGuns(std::string _pathToTexture, std::string _pathToBulletTexture,
 	this->m_showShells = true;
 	this->m_dynamicAccuracy = true;
 
+	this->m_ammoType = AmmoType::BULLETS;
+
 	this->m_shotFrameCount = 14;
 	this->m_emptyFrameCount = 6;
 	this->m_reloadFrameCount = 14;

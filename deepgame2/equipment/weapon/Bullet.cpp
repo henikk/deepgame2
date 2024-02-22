@@ -1,5 +1,4 @@
 #include "Bullet.h"
-#include <iostream>
 
 Bullet::Bullet(sf::Texture* _texture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range)
 	: m_texture(*_texture), m_initialPosition(_initialPostition), m_speed(_speed), m_damage(_damage), m_angle(_angle), m_range(_range), m_isAlive(true)
@@ -35,7 +34,8 @@ void Bullet::render(sf::RenderWindow* target) const
 		target->draw(this->m_body);
 }
 
-void Bullet::killIfOutRange() {
+void Bullet::killIfOutRange() 
+{
 	if (this->m_body.getPosition().x >= this->m_initialPosition.x + this->m_range ||
 		this->m_body.getPosition().y <= this->m_initialPosition.y - this->m_range ||
 		this->m_body.getPosition().x <= this->m_initialPosition.x - this->m_range ||

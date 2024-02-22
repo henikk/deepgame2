@@ -23,6 +23,8 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_showShells = true;
 	this->m_dynamicAccuracy = true;
 
+	this->m_ammoType = AmmoType::BULLETS;
+
 	this->m_shotFrameCount = 8;
 	this->m_emptyFrameCount = 4;
 	this->m_reloadFrameCount = 35;
