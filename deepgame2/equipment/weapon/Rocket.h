@@ -22,33 +22,49 @@ private:
 	float m_range;
 
 private:
-	std::vector<Particle> m_smokePath;
-	sf::Color m_particleColor;
-	sf::Texture m_particleSmokeTexture;
-	sf::Vector2f m_particleInitialScale;
-	sf::Vector2f m_particleMaxScale;
-	u8 m_particleSpawnRateInMs;
-	u8 m_particleInitialAlpha;
-	u8 m_smokeAngleError;
-	i16 m_particleRotationSpeed;
-	u16 m_particleSpeed;
-	float m_particleAcceleration;
-	float m_particleUpwardForce;
-	float m_particleLifeTime;
+	std::vector<Particle> m_particles;
 
-	std::vector<Particle> m_firePath;
-	sf::Color m_particle2Color;
-	sf::Texture m_particleFireTexture;
-	sf::Vector2f m_particle2InitialScale;
-	sf::Vector2f m_particle2MaxScale;
-	u8 m_particle2SpawnRateInMs;
-	u8 m_particle2InitialAlpha;
+	// Smoke
+	sf::Color m_smokeParticleColor;
+	sf::Texture m_smokeParticleTexture;
+	sf::Vector2f m_smokeParticleInitialScale;
+	sf::Vector2f m_smokeParticleMaxScale;
+	u8 m_smokeParticleSpawnRateInMs;
+	u8 m_smokeParticleInitialAlpha;
+	u8 m_smokeAngleError;
+	i16 m_smokeParticleRotationSpeed;
+	u16 m_smokeParticleSpeed;
+	float m_smokeParticleAcceleration;
+	float m_smokeParticleUpwardForce;
+	float m_smokeParticleLifeTime;
+
+	// Fire
+	sf::Color m_fireParticleColor;
+	sf::Texture m_fireParticleTexture;
+	sf::Vector2f m_fireParticleInitialScale;
+	sf::Vector2f m_fireParticleMaxScale;
+	u8 m_fireParticleSpawnRateInMs;
+	u8 m_fireParticleInitialAlpha;
 	u8 m_fireAngleError;
-	i16 m_particle2RotationSpeed;
-	u16 m_particle2Speed;
-	float m_particle2Acceleration;
-	float m_particle2UpwardForce;
-	float m_particle2LifeTime;
+	i16 m_fireParticleRotationSpeed;
+	u16 m_fireParticleSpeed;
+	float m_fireParticleAcceleration;
+	float m_fireParticleUpwardForce;
+	float m_fireParticleLifeTime;
+
+	// Explosion
+	sf::Color m_explosionParticleColor;
+	sf::Texture m_explosionParticleTexture;
+	sf::Vector2f m_explosionParticleInitialScale;
+	sf::Vector2f m_explosionParticleMaxScale;
+	u8 m_explosionParticleInitialAlpha;
+	u8 m_explosionParticlesAmount;
+	i16 m_explosionParticleRotationSpeed;
+	u16 m_explosionParticleSpeed;
+	u16 m_explosionParticleSpeedError;
+	float m_explosionParticleAcceleration;
+	float m_explosionParticleUpwardForce;
+	float m_explosionParticleLifeTime;
 
 private:
 	bool m_isAlive;
@@ -59,13 +75,16 @@ private:
 
 private:
 	void killIfOutRange();
-	void spawnSmoke();
-	void spawnFire();
-	void updateSmoke(float deltaTime);
-	void updateFire(float deltaTime);
+	void spawnPathParticles();
+	void updateParticles(float deltaTime);
+	void move(float deltaTime);
+
+private:
+	void initBody();
+	void initParticles();
 
 public:
-	Rocket(sf::Texture* _texture, sf::Texture* _smokeTexture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range);
+	Rocket(sf::Texture* _texture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range);
 	~Rocket();
 
 public:
@@ -77,7 +96,8 @@ public:
 
 	__forceinline const void kill() { this->m_isAlive = false; }
 	__forceinline const bool isAlive() const { return this->m_isAlive; }
-	__forceinline const bool isParticleAlive() const { return m_smokePath.size() > 0 ? true : false; }
+	__forceinline const bool isParticleAlive() const { return m_particles.size() > 0 ? true : false; }
+	const void explode();
 };
 
 #endif

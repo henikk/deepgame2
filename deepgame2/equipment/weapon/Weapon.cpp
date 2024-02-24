@@ -244,7 +244,7 @@ const void Weapon::spawnBullet()
 
 const void Weapon::spawnRocket()
 {
-	this->m_rockets.emplace_back(Rocket(&this->m_bulletTexture, &this->m_particleSmokeTexture, this->m_barrelPosition, this->m_bulletSpeed,
+	this->m_rockets.emplace_back(Rocket(&this->m_bulletTexture, this->m_barrelPosition, this->m_bulletSpeed,
 		this->m_damage, this->m_accuracyAngle, this->m_fireRange));
 }
 

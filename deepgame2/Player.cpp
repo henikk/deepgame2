@@ -17,7 +17,7 @@ Player::Player(sf::Vector2f _size, sf::Color _color, sf::Vector2f _position, u8 
 	this->m_isGrounded = false;
 	this->m_jumpForce = 360.0f;
 	this->m_gravity = 9.81f * 150.0f;
-	this->m_velocity = {0.0f, 0.0f};
+	this->m_velocity = { 0.0f, 0.0f };
 	this->m_speed = 100.0f * 5.0f;
 
 }

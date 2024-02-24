@@ -84,6 +84,9 @@
     <ClCompile Include="equipment\weapon\Rocket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="equipment\weapon\Grenade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -459,6 +462,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="equipment\weapon\Rocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="equipment\weapon\Grenade.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

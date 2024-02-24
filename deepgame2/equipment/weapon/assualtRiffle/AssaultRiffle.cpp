@@ -8,7 +8,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_bulletsPerShot = 1;
 	this->m_accuracyRecoverySpeed = 40.0f;
 	this->m_recoil = 6.8f;
-	this->m_bulletSpeed = 500; //10000
+	this->m_bulletSpeed = 10000;
 	this->m_fireRange = 5000;
 	this->m_viewRange = 1600; // TEMP
 	this->m_capacity = 30;
@@ -23,7 +23,7 @@ AssaultRiffle::AssaultRiffle(std::string _pathToTexture, std::string _pathToBull
 	this->m_showShells = true;
 	this->m_dynamicAccuracy = true;
 
-	this->m_ammoType = AmmoType::ROCKETS;
+	this->m_ammoType = AmmoType::BULLETS;
 
 	this->m_shotFrameCount = 10;
 	this->m_emptyFrameCount = 8;
