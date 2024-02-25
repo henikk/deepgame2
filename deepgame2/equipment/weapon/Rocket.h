@@ -79,25 +79,33 @@ private:
 	// Flash
 	sf::Texture m_explosionTexture;
 	sf::Sprite m_explosionSprite;
-	float m_explosionShowTime;	
+	sf::IntRect m_explosionFrame;
+	u8 m_explosionFrameCount;
+	float m_explosionAnimationTimeInS;
 
 private:
 	bool m_isAlive;
 	bool m_isExplosionFlashShown;
+	bool m_isExplosionFlashAnimating;
 
 private:
 	sf::Clock m_clock;
-	sf::Clock m_flashClock;
+	sf::Clock m_flashAnimationClock;
 	sf::Time m_elapsedTime;
-	sf::Time m_flashElapsedTime;
+	sf::Time m_flashAnimationElapsedTime;
 
 private:
 	void killIfOutRange();
 	void spawnPathParticles();
 	void showExplosionFlash();
+
+private:
+	void move(float deltaTime);
+	
+	void animateExplosion();
+		
 	void updateParticles(float deltaTime);
 	void updateDebris(float deltaTime);
-	void move(float deltaTime);
 	
 	void renderExplosionFlash(sf::RenderWindow* target);
 

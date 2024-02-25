@@ -1,5 +1,5 @@
 #include "Rocket.h"
-
+#include <iostream>
 Rocket::Rocket(sf::Texture* _texture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range)
 	: m_texture(*_texture), m_initialPosition(_initialPostition), m_speed(_speed), m_damage(_damage), m_angle(_angle), m_range(_range), m_isAlive(true), m_isExplosionFlashShown(false)
 {	
@@ -68,7 +68,7 @@ void Rocket::showExplosionFlash()
 {
 	if (!this->m_isExplosionFlashShown)
 	{
-		this->m_flashClock.restart();
+		//this->m_flashAnimationlock.restart();
 		this->m_explosionSprite.setTexture(this->m_explosionTexture);
 		this->m_explosionSprite.setPosition(this->m_body.getPosition());
 		this->m_isExplosionFlashShown = true;
@@ -103,17 +103,38 @@ void Rocket::move(float deltaTime)
 	this->m_body.move(this->m_velocity * deltaTime);
 }
 
+void Rocket::animateExplosion()
+{
+	this->m_flashAnimationElapsedTime = this->m_flashAnimationClock.getElapsedTime();
+
+	if (this->m_isExplosionFlashAnimating && this->m_isExplosionFlashShown)
+	{
+		if (this->m_explosionFrame.left == this->m_explosionFrame.width * (this->m_explosionFrameCount - 1))
+			this->m_isExplosionFlashAnimating = false;
+		else if (this->m_flashAnimationElapsedTime.asSeconds() >= this->m_explosionAnimationTimeInS / (this->m_explosionFrameCount - 1))
+		{
+			this->m_flashAnimationClock.restart();
+			this->m_explosionFrame.left += this->m_explosionFrame.width;
+		}
+
+		if (this->m_explosionFrame.left == this->m_explosionFrame.width * (this->m_explosionFrameCount - 2)) // change this
+		{
+			this->m_explosionFrame.left = 0;
+			this->m_explosionFrame.top += this->m_explosionFrame.height;
+		}
+
+		this->m_explosionSprite.setTextureRect(this->m_explosionFrame);
+	}
+}
+
 void Rocket::renderExplosionFlash(sf::RenderWindow* target)
 {
 	if (this->m_isExplosionFlashShown)
 	{
 		target->draw(this->m_explosionSprite);
 
-		if (this->m_flashClock.getElapsedTime().asSeconds() >= 0.045f)
-		{
+		if (!this->m_isExplosionFlashAnimating)
 			this->m_isExplosionFlashShown = false;
-			this->m_flashClock.restart();
-		}
 	}
 }
 
@@ -139,7 +160,7 @@ void Rocket::initParticles()
 	this->m_smokeParticleSpeed = 5u;
 	this->m_smokeParticleAcceleration = 0.0f;
 	this->m_smokeParticleUpwardForce = 5.0f;
-	this->m_smokeParticleLifeTime = 2.0f;
+	this->m_smokeParticleLifeTime = 1.5f;
 
 	// Fire
 	this->m_fireParticleColor = sf::Color::White;
@@ -173,18 +194,23 @@ void Rocket::initParticles()
 	this->m_explosionParticleSpeed = 0u;
 	this->m_explosionParticleSpeedError = 700u;
 	this->m_explosionParticleAcceleration = 3.0f;
-	this->m_explosionParticleUpwardForce = 30.0f;
+	this->m_explosionParticleUpwardForce = 55.0f;
 	this->m_explosionParticleLifeTime = this->m_smokeParticleLifeTime;
 }
 
 void Rocket::initExplosionFlash()
 {
+	this->m_isExplosionFlashAnimating = false;
+	this->m_explosionFrame = sf::IntRect(0, 0, 192, 192);
+	this->m_explosionFrameCount = 5u;
+	this->m_explosionTexture.loadFromFile("textures/particles/explosion_sprite_sheet.png");
 	this->m_explosionTexture.setSmooth(true);
-	this->m_explosionTexture.loadFromFile("textures/particles/flameLowRes1.png");
-	this->m_explosionSprite.setRotation(rand() % 360);
-	this->m_explosionSprite.setScale(2.5f, 2.5f);
 	this->m_explosionSprite.setTexture(this->m_explosionTexture);
-	this->m_explosionSprite.setOrigin(sf::Vector2f(this->m_explosionTexture.getSize().x / 2.0f, this->m_explosionTexture.getSize().y / 2.0f));
+	this->m_explosionSprite.setTextureRect(this->m_explosionFrame);
+	this->m_explosionSprite.setRotation(rand() % 360);
+	this->m_explosionSprite.setScale(2.0f, 2.0f);
+	this->m_explosionSprite.setOrigin(sf::Vector2f(this->m_explosionFrame.width / 2.0f, this->m_explosionFrame.height / 2.0f));
+	this->m_explosionAnimationTimeInS = 0.1f;
 }
 
 void Rocket::update(float deltaTime)
@@ -204,6 +230,7 @@ void Rocket::update(float deltaTime)
 		this->killIfOutRange();
 	}
 
+	this->animateExplosion();
 	this->updateDebris(deltaTime);
 	this->updateParticles(deltaTime);
 }
@@ -225,6 +252,8 @@ void Rocket::render(sf::RenderWindow* target)
 const void Rocket::explode()
 {
 	float currentAngle = 0.0f;
+
+	this->m_isExplosionFlashAnimating = true;
 
 	// Smoke particles
 	for (int i = 0; i < this->m_explosionParticlesAmount; i++)
