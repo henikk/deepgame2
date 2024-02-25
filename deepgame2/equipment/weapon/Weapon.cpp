@@ -72,13 +72,13 @@ void Weapon::Reload()
 			this->m_frame.left = 0;
 			this->m_reloadClock.restart();
 
-			if (this->m_ammo >= this->m_capacity - this->m_magazine) // Завантажити відсутні патрони
+			if (this->m_ammo >= this->m_capacity - this->m_magazine)
 			{
 				u16 missingAmmo = this->m_capacity - this->m_magazine;
 				this->m_magazine += missingAmmo;
 				this->m_ammo -= missingAmmo;
 			}
-			else // Завантажити всі доступні патрони
+			else
 			{
 				this->m_magazine += this->m_ammo;
 				this->m_ammo = 0;

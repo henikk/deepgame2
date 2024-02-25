@@ -25,6 +25,8 @@ private:
 private:
 	void killIfOutRange();
 
+	void decreaseOpacity();
+
 public:
 	Bullet(sf::Texture *_texture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range);
 	~Bullet();

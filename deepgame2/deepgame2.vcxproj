@@ -241,6 +241,7 @@
     <Image Include="textures\weapon\shotgun\[SHOOTING_CHAMBER_CLOSED] Shotgun_V1.02.png" />
     <Image Include="textures\weapon\shotgun\[SHOOTING_CHAMBER_OPEN] Shotgun_V1.02.png" />
     <Image Include="textures\weapon\shot\bullet.png" />
+    <Image Include="textures\weapon\shot\bullet2.png" />
     <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_00.png" />
     <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_01.png" />
     <Image Include="textures\weapon\shot\many\All_Fire_Bullet_Pixel_16x16_02.png" />

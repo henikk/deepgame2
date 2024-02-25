@@ -71,8 +71,10 @@ private:
 	// Debris
 	sf::Texture m_debrisTexture;
 	u8 m_debrisAmount;
-	u16 m_debrisMaxSpeed;
-	float m_debrisMaxRange;
+	u16 m_debrisSpeed;
+	u16 m_debrisSpeedError;
+	u16 m_debrisRangeError;
+	float m_debrisRange;
 
 	// Flash
 	sf::Texture m_explosionTexture;

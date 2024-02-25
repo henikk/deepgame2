@@ -24,7 +24,8 @@ void Bullet::update(float deltaTime)
 		this->m_velocity = sf::Vector2f(this->m_speed * std::cos(radians), this->m_speed * std::sin(radians));
 		this->m_body.move(this->m_velocity * deltaTime);
 
-		killIfOutRange();
+		this->decreaseOpacity();
+		this->killIfOutRange();
 	}
 }
 
@@ -43,4 +44,23 @@ void Bullet::killIfOutRange()
 	{
 		this->kill();
 	}
+}
+
+void Bullet::decreaseOpacity()
+{
+	float distance = std::sqrt(std::pow(this->m_body.getPosition().x - this->m_initialPosition.x, 2) +
+		std::pow(this->m_body.getPosition().y - this->m_initialPosition.y, 2));
+
+	float transparency = 255.0f * (1.0f - distance / this->m_range);
+
+	if (distance >= this->m_range)
+		transparency = 0.0f;
+
+	this->m_body.setColor(sf::Color
+	(
+		this->m_body.getColor().r,
+		this->m_body.getColor().g,
+		this->m_body.getColor().b,
+		static_cast<u8>(transparency)
+	));
 }

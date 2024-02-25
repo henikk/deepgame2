@@ -156,9 +156,11 @@ void Rocket::initParticles()
 
 	// Debris
 	this->m_debrisTexture.loadFromFile("textures/particles/assault_shell.png");
-	this->m_debrisAmount = 255u;
-	this->m_debrisMaxSpeed = 200u;
-	this->m_debrisMaxRange = 2000.0f;
+	this->m_debrisAmount = 128u;
+	this->m_debrisSpeed = 2000u;
+	this->m_debrisSpeedError = this->m_debrisSpeed / 3;
+	this->m_debrisRange = 350.0f;
+	this->m_debrisRangeError = this->m_debrisRange / 2;
 
 	// Explosion
 	this->m_explosionParticleColor = sf::Color(175, 175, 175);
@@ -249,8 +251,8 @@ const void Rocket::explode()
 	// Debris
 	for (int i = 0; i < this->m_debrisAmount; i++)
 	{
-		this->m_debris.emplace_back(Bullet(&this->m_debrisTexture, this->m_body.getPosition(), this->m_debrisMaxSpeed,
-			this->m_damage, static_cast<float>(rand() % 360), this->m_debrisMaxRange));
+		this->m_debris.emplace_back(Bullet(&this->m_debrisTexture, this->m_body.getPosition(), this->m_debrisSpeed + rand() % this->m_debrisSpeedError,
+			this->m_damage, static_cast<float>(rand() % 360), this->m_debrisRange + rand() % this->m_debrisRangeError));
 	}
 
 	this->showExplosionFlash();
