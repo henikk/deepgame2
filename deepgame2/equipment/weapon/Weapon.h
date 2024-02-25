@@ -95,10 +95,9 @@ private:
 	void initFlash();
 
 private:
-	void updateBullets(float deltaTime);
+	template<typename T>
+	void updateAmmunition(std::vector<T>& ammunition, float deltaTime, bool showAmmunition);
 	void updateRockets(float deltaTime);
-	void updateShells(float deltaTime);
-	void updateSmokeParticles(float deltaTime);
 	void updateCursor(const sf::RenderWindow* target);
 
 	void renderBullets(sf::RenderWindow* target);
@@ -106,7 +105,7 @@ private:
 	void renderShells(sf::RenderWindow* target);
 	void renderSmokeParticles(sf::RenderWindow* target);
 	void renderFlashes(sf::RenderWindow* target);
-	void renderCursor(sf::RenderWindow* target);
+	void renderCursor(sf::RenderWindow* target) const;
 		
 protected:
 	sf::Texture m_texture;

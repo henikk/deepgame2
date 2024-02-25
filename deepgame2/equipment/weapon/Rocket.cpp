@@ -1,13 +1,16 @@
 #include "Rocket.h"
 
 Rocket::Rocket(sf::Texture* _texture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range)
-	: m_texture(*_texture), m_initialPosition(_initialPostition), m_speed(_speed), m_damage(_damage), m_angle(_angle), m_range(_range), m_isAlive(true)
+	: m_texture(*_texture), m_initialPosition(_initialPostition), m_speed(_speed), m_damage(_damage), m_angle(_angle), m_range(_range), m_isAlive(true), m_isExplosionFlashShown(false)
 {	
 	this->m_elapsedTime = this->m_clock.getElapsedTime();
 
+	_texture->setSmooth(true);
 	this->m_body.setTexture(*_texture);
+
 	this->initBody();
 	this->initParticles();
+	this->initExplosionFlash();
 }
 
 Rocket::~Rocket(){}
@@ -40,7 +43,7 @@ void Rocket::spawnPathParticles()
 		this->m_smokeParticleAcceleration,
 		180.0f - this->m_angle + rand() % (this->m_smokeAngleError + 1) - static_cast<float>(this->m_smokeAngleError / 2),
 		this->m_smokeParticleUpwardForce,
-		this->m_smokeParticleLifeTime
+		this->m_smokeParticleLifeTime + rand() % this->m_particleLifeTimeError
 	));
 
 	// Fire
@@ -61,20 +64,35 @@ void Rocket::spawnPathParticles()
 	));
 }
 
+void Rocket::showExplosionFlash()
+{
+	if (!this->m_isExplosionFlashShown)
+	{
+		this->m_flashClock.restart();
+		this->m_explosionSprite.setTexture(this->m_explosionTexture);
+		this->m_explosionSprite.setPosition(this->m_body.getPosition());
+		this->m_isExplosionFlashShown = true;
+	}
+}
+
 void Rocket::updateParticles(float deltaTime)
 {
-	for (auto it = this->m_particles.begin(); it != this->m_particles.end();)
-	{
-		if (!it->isAlive())
-		{
-			it = this->m_particles.erase(it);
-		}
-		else
-		{
-			it->update(deltaTime);
-			++it;
-		}
-	}
+	this->m_particles.erase(std::remove_if(this->m_particles.begin(), this->m_particles.end(), [](const auto& particles) {
+		return !particles.isAlive();
+		}), this->m_particles.end());
+
+	for (auto& particle : this->m_particles)
+		particle.update(deltaTime);
+}
+
+void Rocket::updateDebris(float deltaTime)
+{
+	this->m_debris.erase(std::remove_if(this->m_debris.begin(), this->m_debris.end(), [](const auto& debris) {
+		return !debris.isAlive();
+		}), this->m_debris.end());
+
+	for (auto& debris : this->m_debris)
+		debris.update(deltaTime);
 }
 
 void Rocket::move(float deltaTime)
@@ -83,6 +101,20 @@ void Rocket::move(float deltaTime)
 
 	this->m_velocity = sf::Vector2f(this->m_speed * std::cos(radians), this->m_speed * std::sin(radians));
 	this->m_body.move(this->m_velocity * deltaTime);
+}
+
+void Rocket::renderExplosionFlash(sf::RenderWindow* target)
+{
+	if (this->m_isExplosionFlashShown)
+	{
+		target->draw(this->m_explosionSprite);
+
+		if (this->m_flashClock.getElapsedTime().asSeconds() >= 0.045f)
+		{
+			this->m_isExplosionFlashShown = false;
+			this->m_flashClock.restart();
+		}
+	}
 }
 
 void Rocket::initBody()
@@ -95,35 +127,41 @@ void Rocket::initBody()
 void Rocket::initParticles()
 {
 	// Smoke
-	this->m_smokeParticleColor = sf::Color::White;
+	this->m_smokeParticleColor = sf::Color(175, 175, 175);
 	this->m_smokeParticleTexture.loadFromFile("textures/particles/smoke.png");
-	this->m_smokeParticleInitialScale = { 0.16f, 0.16f };
+	this->m_smokeParticleInitialScale = { 0.20f, 0.16f };
 	this->m_smokeParticleMaxScale = { 0.4f, 0.4f };
-	this->m_smokeParticleSpawnRateInMs = 150u;
+	this->m_particleSpawnRateInMs = 150u;
 	this->m_smokeAngleError = 70u;
+	this->m_particleLifeTimeError = 2u;
 	this->m_smokeParticleRotationSpeed = 50;
-	this->m_smokeParticleInitialAlpha = 150u;
+	this->m_smokeParticleInitialAlpha = 128u;
 	this->m_smokeParticleSpeed = 5u;
 	this->m_smokeParticleAcceleration = 0.0f;
 	this->m_smokeParticleUpwardForce = 5.0f;
-	this->m_smokeParticleLifeTime = 5.0f;
+	this->m_smokeParticleLifeTime = 2.0f;
 
 	// Fire
 	this->m_fireParticleColor = sf::Color::White;
-	this->m_fireParticleTexture.loadFromFile("textures/particles/fireball2.png");
-	this->m_fireParticleInitialScale = { 0.05f, 0.05f };
-	this->m_fireParticleMaxScale = { 0.06f, 0.06f };
-	this->m_fireParticleSpawnRateInMs = 150u;
+	this->m_fireParticleTexture.loadFromFile("textures/particles/flameLowRes1.png");
+	this->m_fireParticleInitialScale = { 0.4f, 0.4f };
+	this->m_fireParticleMaxScale = { 0.5f, 0.5f };
 	this->m_fireAngleError = 100u;
 	this->m_fireParticleRotationSpeed = 50;
-	this->m_fireParticleInitialAlpha = 200u;
+	this->m_fireParticleInitialAlpha = 255u;
 	this->m_fireParticleSpeed = 5u;
 	this->m_fireParticleAcceleration = 0.0f;
 	this->m_fireParticleUpwardForce = 5.0f;
 	this->m_fireParticleLifeTime = 0.1f;
 
+	// Debris
+	this->m_debrisTexture.loadFromFile("textures/particles/assault_shell.png");
+	this->m_debrisAmount = 255u;
+	this->m_debrisMaxSpeed = 200u;
+	this->m_debrisMaxRange = 2000.0f;
+
 	// Explosion
-	this->m_explosionParticleColor = sf::Color::White;
+	this->m_explosionParticleColor = sf::Color(175, 175, 175);
 	this->m_explosionParticleTexture = this->m_smokeParticleTexture;
 	this->m_explosionParticleInitialScale = { 0.5f, 0.5f };
 	this->m_explosionParticleMaxScale = { 0.9f, 0.9f };
@@ -137,13 +175,23 @@ void Rocket::initParticles()
 	this->m_explosionParticleLifeTime = this->m_smokeParticleLifeTime;
 }
 
+void Rocket::initExplosionFlash()
+{
+	this->m_explosionTexture.setSmooth(true);
+	this->m_explosionTexture.loadFromFile("textures/particles/flameLowRes1.png");
+	this->m_explosionSprite.setRotation(rand() % 360);
+	this->m_explosionSprite.setScale(2.5f, 2.5f);
+	this->m_explosionSprite.setTexture(this->m_explosionTexture);
+	this->m_explosionSprite.setOrigin(sf::Vector2f(this->m_explosionTexture.getSize().x / 2.0f, this->m_explosionTexture.getSize().y / 2.0f));
+}
+
 void Rocket::update(float deltaTime)
 {
 	if (this->m_isAlive)
 	{
 		this->m_elapsedTime = this->m_clock.getElapsedTime();
 
-		if (this->m_elapsedTime.asMilliseconds() >= (100.0f / this->m_speed) * this->m_smokeParticleSpawnRateInMs)
+		if (this->m_elapsedTime.asMilliseconds() >= (100.0f / this->m_speed) * this->m_particleSpawnRateInMs)
 		{
 			this->m_clock.restart();
 
@@ -153,23 +201,30 @@ void Rocket::update(float deltaTime)
 		this->move(deltaTime);
 		this->killIfOutRange();
 	}
+
+	this->updateDebris(deltaTime);
 	this->updateParticles(deltaTime);
 }
 
-void Rocket::render(sf::RenderWindow* target) const
+void Rocket::render(sf::RenderWindow* target)
 {
-	if (this->m_isAlive)
-		target->draw(this->m_body);
+	this->renderExplosionFlash(target);
+
+	for (auto& debris : this->m_debris)
+		debris.render(target);
 
 	for (auto& particle : this->m_particles)
 		particle.render(target);
+
+	if (this->m_isAlive)
+		target->draw(this->m_body);
 }
 
 const void Rocket::explode()
 {
-	float angleIncrement = 360.0f / this->m_explosionParticlesAmount;
 	float currentAngle = 0.0f;
 
+	// Smoke particles
 	for (int i = 0; i < this->m_explosionParticlesAmount; i++)
 	{
 		this->m_particles.emplace_back(Particle
@@ -185,9 +240,18 @@ const void Rocket::explode()
 			this->m_explosionParticleAcceleration,
 			currentAngle,
 			this->m_explosionParticleUpwardForce,
-			this->m_explosionParticleLifeTime
+			this->m_explosionParticleLifeTime + rand() % this->m_particleLifeTimeError
 		));
 
-		currentAngle += angleIncrement;
+		currentAngle += 360.0f / this->m_explosionParticlesAmount;
 	}
+
+	// Debris
+	for (int i = 0; i < this->m_debrisAmount; i++)
+	{
+		this->m_debris.emplace_back(Bullet(&this->m_debrisTexture, this->m_body.getPosition(), this->m_debrisMaxSpeed,
+			this->m_damage, static_cast<float>(rand() % 360), this->m_debrisMaxRange));
+	}
+
+	this->showExplosionFlash();
 }

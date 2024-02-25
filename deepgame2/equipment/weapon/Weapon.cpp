@@ -10,7 +10,7 @@ Weapon::Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std
 	this->initFlash();
 }
 
-Weapon::~Weapon(){}
+Weapon::~Weapon() {}
 
 void Weapon::Shoot()
 {
@@ -32,7 +32,7 @@ void Weapon::Shoot()
 						this->m_accuracyAngle = this->addRandToAngle();
 					else
 						this->m_accuracyAngle = 180.0f - this->addRandToAngle();
-										
+
 					switch (this->m_ammoType)
 					{
 					case Weapon::AmmoType::BULLETS:
@@ -46,7 +46,7 @@ void Weapon::Shoot()
 					default:
 						break;
 					}
-					
+
 					this->spawnSmoke();
 				}
 				this->m_magazine--;
@@ -58,13 +58,13 @@ void Weapon::Shoot()
 			}
 			this->m_shootClock.restart();
 		}
-	}	
+	}
 }
 
 void Weapon::Reload()
 {
 	if (this->m_canShoot)
-	{		
+	{
 		if (this->m_magazine < this->m_capacity && this->m_ammo > 0)
 		{
 			this->m_canShoot = false;
@@ -116,7 +116,7 @@ void Weapon::AngleControl(const sf::RenderWindow* target)
 		this->m_body.setScale({ -1.0f, 1.0f });
 		this->m_angle = 180.0f - this->m_angle;
 		this->m_body.setRotation(-this->m_angle);
-	}			
+	}
 }
 
 float Weapon::addRandToAngle() const
@@ -188,7 +188,7 @@ const void Weapon::animateShot()
 		}
 
 		this->m_body.setTextureRect(this->m_frame);
-	}	
+	}
 }
 
 const void Weapon::animateEmpty()
@@ -266,7 +266,7 @@ const void Weapon::spawnShell()
 			-this->m_shellDownwardForce,
 			this->m_shellLifeTime
 		));
-	}	
+	}
 }
 
 const void Weapon::spawnSmoke()
@@ -301,7 +301,7 @@ const void Weapon::makeShotSound()
 
 void loadConfig(const std::string& pathToFile) {
 	std::ifstream file(pathToFile);
-	if (!file.is_open()) 
+	if (!file.is_open())
 	{
 		std::cerr << "Unable to open config file: " << pathToFile << std::endl;
 		return;
@@ -312,7 +312,7 @@ void loadConfig(const std::string& pathToFile) {
 	while (std::getline(file, line)) {
 
 		size_t delimiterPos = line.find('=');
-		if (delimiterPos != std::string::npos) 
+		if (delimiterPos != std::string::npos)
 		{
 			std::string key = line.substr(0, delimiterPos);
 			std::string value = line.substr(delimiterPos + 1);
@@ -356,74 +356,28 @@ void Weapon::initFlash()
 	this->m_flashSprite.setScale({ 0.20f, 0.30f });
 }
 
-void Weapon::updateBullets(float deltaTime)
+template<typename T>
+void Weapon::updateAmmunition(std::vector<T>& ammunition, float deltaTime, bool showAmmunition)
 {
-	for (auto it = this->m_bullets.begin(); it != this->m_bullets.end();)
+	if (showAmmunition)
 	{
-		if (!it->isAlive())
-		{
-			it = this->m_bullets.erase(it);
-		}
-		else
-		{
-			it->update(deltaTime);
-			++it;
-		}
+		ammunition.erase(std::remove_if(ammunition.begin(), ammunition.end(), [](const auto& ammo) {
+			return !ammo.isAlive();
+			}), ammunition.end());
+
+		for (auto& ammo : ammunition)
+			ammo.update(deltaTime);
 	}
 }
 
 void Weapon::updateRockets(float deltaTime)
 {
-	for (auto it = this->m_rockets.begin(); it != this->m_rockets.end();)
-	{
-		if (!it->isAlive() && !it->isParticleAlive())
-		{
-			it = this->m_rockets.erase(it);
-		}
-		else
-		{
-			it->update(deltaTime);
-			++it;
-		}
-	}
-}
+	this->m_rockets.erase(std::remove_if(this->m_rockets.begin(), this->m_rockets.end(), [](const auto& rocket) {
+		return !rocket.isAlive() && !rocket.isParticleAlive();
+		}), this->m_rockets.end());
 
-void Weapon::updateShells(float deltaTime)
-{
-	if (this->m_showShells)
-	{
-		for (auto it = this->m_shells.begin(); it != this->m_shells.end();)
-		{
-			if (!it->isAlive())
-			{
-				it = this->m_shells.erase(it);
-			}
-			else
-			{
-				it->update(deltaTime);
-				++it;
-			}
-		}
-	}	
-}
-
-void Weapon::updateSmokeParticles(float deltaTime)
-{
-	if (this->m_showSmoke)
-	{
-		for (auto it = this->m_shotSmokeArray.begin(); it != this->m_shotSmokeArray.end();)
-		{
-			if (!it->isAlive())
-			{
-				it = this->m_shotSmokeArray.erase(it);
-			}
-			else
-			{
-				it->update(deltaTime);
-				++it;
-			}
-		}
-	}
+	for (auto& rocket : this->m_rockets)
+		rocket.update(deltaTime);
 }
 
 void Weapon::updateCursor(const sf::RenderWindow* target)
@@ -478,7 +432,7 @@ void Weapon::renderFlashes(sf::RenderWindow* target)
 	}
 }
 
-void Weapon::renderCursor(sf::RenderWindow* target)
+void Weapon::renderCursor(sf::RenderWindow* target) const
 {
 	target->draw(this->m_topCursor);
 	target->draw(this->m_bottomCursor);
@@ -496,7 +450,6 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 	if (this->m_magazine <= 0)
 		this->m_emptyAnimating = true;
 
-
 	if (this->m_isSelected)
 	{
 		this->animateShot();
@@ -504,11 +457,13 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 		this->animateReload();
 		this->updateInput(target);
 	}
+
 	this->updateTime();
-	this->updateBullets(deltaTime);
-	this->updateRockets(deltaTime);
-	this->updateShells(deltaTime);
-	this->updateSmokeParticles(deltaTime);
+
+	this->updateRockets(deltaTime); 
+	this->updateAmmunition(this->m_bullets, deltaTime, true);
+	this->updateAmmunition(this->m_shells, deltaTime, this->m_showShells);
+	this->updateAmmunition(this->m_shotSmokeArray, deltaTime, this->m_showSmoke);
 
 	this->increaseAccuracy(deltaTime);
 }
@@ -562,6 +517,6 @@ void Weapon::render(sf::RenderWindow* target)
 		target->draw(this->m_body);
 
 		this->renderCursor(target);
-	}	
+	}
 	this->renderShells(target); // [TEMP] or not
 }

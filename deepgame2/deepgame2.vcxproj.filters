@@ -721,6 +721,18 @@
     <Image Include="textures\cursor\line.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="textures\particles\flameLowRes1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\fireball1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\fireball2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\particles\flame1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="external\include\SFML\Audio\SoundFileFactory.inl">

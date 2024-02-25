@@ -6,6 +6,7 @@
 
 #include "../../types.h"
 #include "../../FX/Particle.h"
+#include "Bullet.h"
 
 class Rocket
 {
@@ -23,13 +24,14 @@ private:
 
 private:
 	std::vector<Particle> m_particles;
+	std::vector<Bullet> m_debris;
 
 	// Smoke
 	sf::Color m_smokeParticleColor;
 	sf::Texture m_smokeParticleTexture;
 	sf::Vector2f m_smokeParticleInitialScale;
 	sf::Vector2f m_smokeParticleMaxScale;
-	u8 m_smokeParticleSpawnRateInMs;
+	u8 m_particleSpawnRateInMs;
 	u8 m_smokeParticleInitialAlpha;
 	u8 m_smokeAngleError;
 	i16 m_smokeParticleRotationSpeed;
@@ -43,9 +45,9 @@ private:
 	sf::Texture m_fireParticleTexture;
 	sf::Vector2f m_fireParticleInitialScale;
 	sf::Vector2f m_fireParticleMaxScale;
-	u8 m_fireParticleSpawnRateInMs;
 	u8 m_fireParticleInitialAlpha;
 	u8 m_fireAngleError;
+	u8 m_particleLifeTimeError;
 	i16 m_fireParticleRotationSpeed;
 	u16 m_fireParticleSpeed;
 	float m_fireParticleAcceleration;
@@ -66,22 +68,41 @@ private:
 	float m_explosionParticleUpwardForce;
 	float m_explosionParticleLifeTime;
 
+	// Debris
+	sf::Texture m_debrisTexture;
+	u8 m_debrisAmount;
+	u16 m_debrisMaxSpeed;
+	float m_debrisMaxRange;
+
+	// Flash
+	sf::Texture m_explosionTexture;
+	sf::Sprite m_explosionSprite;
+	float m_explosionShowTime;	
+
 private:
 	bool m_isAlive;
+	bool m_isExplosionFlashShown;
 
 private:
 	sf::Clock m_clock;
+	sf::Clock m_flashClock;
 	sf::Time m_elapsedTime;
+	sf::Time m_flashElapsedTime;
 
 private:
 	void killIfOutRange();
 	void spawnPathParticles();
+	void showExplosionFlash();
 	void updateParticles(float deltaTime);
+	void updateDebris(float deltaTime);
 	void move(float deltaTime);
+	
+	void renderExplosionFlash(sf::RenderWindow* target);
 
 private:
 	void initBody();
 	void initParticles();
+	void initExplosionFlash();
 
 public:
 	Rocket(sf::Texture* _texture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range);
@@ -89,14 +110,15 @@ public:
 
 public:
 	void update(float deltaTime);
-	void render(sf::RenderWindow* target) const;
+	void render(sf::RenderWindow* target);
 
 public:
 	__forceinline const u8 getDamage() const { return this->m_damage; }
 
 	__forceinline const void kill() { this->m_isAlive = false; }
 	__forceinline const bool isAlive() const { return this->m_isAlive; }
-	__forceinline const bool isParticleAlive() const { return m_particles.size() > 0 ? true : false; }
+	__forceinline const bool isParticleAlive() const { return std::fmaxl(this->m_particles.size(), this->m_debris.size()) > 0 ? true : false;
+}
 	const void explode();
 };
 

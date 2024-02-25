@@ -192,6 +192,10 @@
     <Image Include="textures\enemy\Skeleton React.png" />
     <Image Include="textures\enemy\Skeleton Walk.png" />
     <Image Include="textures\particles\assault_shell.png" />
+    <Image Include="textures\particles\fireball1.png" />
+    <Image Include="textures\particles\fireball2.png" />
+    <Image Include="textures\particles\flame1.png" />
+    <Image Include="textures\particles\flameLowRes1.png" />
     <Image Include="textures\particles\flash_sheet.png" />
     <Image Include="textures\particles\pistol_shell.png" />
     <Image Include="textures\particles\shotgun_shell_red.png" />

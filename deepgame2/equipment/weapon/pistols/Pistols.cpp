@@ -8,8 +8,8 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_bulletsPerShot = 1;
 	this->m_accuracyRecoverySpeed = 40.0f;
 	this->m_recoil = 10.0f;
-	this->m_bulletSpeed = 2000;
-	this->m_fireRange = 2000;
+	this->m_bulletSpeed = 200;
+	this->m_fireRange = 200;
 	this->m_viewRange = 1600; // TEMP
 	this->m_capacity = 9;
 	this->m_ammo = 27;	
