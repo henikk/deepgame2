@@ -42,6 +42,7 @@ void Weapon::Shoot()
 						this->spawnRocket();
 						break;
 					case Weapon::AmmoType::GRENADES:
+						this->spawnGrenade();
 						break;
 					default:
 						break;
@@ -238,14 +239,35 @@ const void Weapon::showFlash()
 
 const void Weapon::spawnBullet()
 {
-	this->m_bullets.emplace_back(Bullet(&this->m_bulletTexture, this->m_barrelPosition, this->m_bulletSpeed,
-		this->m_damage, this->m_accuracyAngle, this->m_fireRange));
+	this->m_bullets.emplace_back(Bullet(
+		&this->m_bulletTexture,
+		this->m_barrelPosition,
+		this->m_bulletSpeed,
+		this->m_damage,
+		this->m_accuracyAngle,
+		this->m_fireRange));
 }
 
 const void Weapon::spawnRocket()
 {
-	this->m_rockets.emplace_back(Rocket(&this->m_bulletTexture, this->m_barrelPosition, this->m_bulletSpeed,
-		this->m_damage, this->m_accuracyAngle, this->m_fireRange));
+	this->m_rockets.emplace_back(Rocket(
+		&this->m_bulletTexture,
+		this->m_barrelPosition,
+		this->m_bulletSpeed,
+		this->m_damage,
+		this->m_accuracyAngle,
+		this->m_fireRange));
+}
+
+const void Weapon::spawnGrenade()
+{
+	this->m_grenades.emplace_back(Grenade(
+		&this->m_bulletTexture, 
+		this->m_barrelPosition, 
+		this->m_damage,
+		this->m_bulletSpeed,
+		this->m_accuracyAngle, 
+		3.2f)); // must be - this->m_grenadeLifeTimeInS
 }
 
 const void Weapon::spawnShell()
@@ -380,6 +402,16 @@ void Weapon::updateRockets(float deltaTime)
 		rocket.update(deltaTime);
 }
 
+void Weapon::updateGrenades(float deltaTime)
+{
+	this->m_grenades.erase(std::remove_if(this->m_grenades.begin(), this->m_grenades.end(), [](const auto& grenade) {
+		return !grenade.isAlive() && !grenade.isParticleAlive();
+		}), this->m_grenades.end());
+
+	for (auto& grenade : this->m_grenades)
+		grenade.update(deltaTime);
+}
+
 void Weapon::updateCursor(const sf::RenderWindow* target)
 {
 	sf::Vector2f mouseWorldPosition = target->mapPixelToCoords(sf::Mouse::getPosition(*target));
@@ -402,6 +434,12 @@ void Weapon::renderRockets(sf::RenderWindow* target)
 {
 	for (auto& rocket : this->m_rockets)
 		rocket.render(target);
+}
+
+void Weapon::renderGrenades(sf::RenderWindow* target)
+{
+	for (auto& grenade : this->m_grenades)
+		grenade.render(target);
 }
 
 void Weapon::renderShells(sf::RenderWindow* target)
@@ -461,6 +499,7 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 	this->updateTime();
 
 	this->updateRockets(deltaTime); 
+	this->updateGrenades(deltaTime);
 	this->updateAmmunition(this->m_bullets, deltaTime, true);
 	this->updateAmmunition(this->m_shells, deltaTime, this->m_showShells);
 	this->updateAmmunition(this->m_shotSmokeArray, deltaTime, this->m_showSmoke);
@@ -507,6 +546,7 @@ void Weapon::render(sf::RenderWindow* target)
 {
 	this->renderBullets(target);
 	this->renderRockets(target);
+	this->renderGrenades(target);
 	this->renderSmokeParticles(target);
 	this->renderFlashes(target);
 

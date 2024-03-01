@@ -12,18 +12,22 @@
 #include "../../FX/Particle.h"
 #include "Bullet.h"
 #include "Rocket.h"
+#include "Grenade.h"
 
 class Weapon
 {
 private:
-	std::string m_pathToTexture;
-	std::string m_pathToBulletTexture;
 	std::string m_gunName;
 	std::string m_description;
+
+	std::string m_pathToTexture;
+	std::string m_pathToBulletTexture;
 
 private:
 	std::vector<Bullet> m_bullets;
 	std::vector<Rocket> m_rockets;
+	std::vector<Grenade> m_grenades;
+
 	std::vector<Particle> m_shotSmokeArray;
 	std::vector<Particle> m_shells;
 
@@ -82,7 +86,8 @@ private:
 	const void animateReload();
 
 	const void spawnBullet();
-	const void spawnRocket();	
+	const void spawnRocket();
+	const void spawnGrenade();
 	const void spawnShell();
 	const void spawnSmoke();
 	const void showFlash();
@@ -98,10 +103,12 @@ private:
 	template<typename T>
 	void updateAmmunition(std::vector<T>& ammunition, float deltaTime, bool showAmmunition);
 	void updateRockets(float deltaTime);
+	void updateGrenades(float deltaTime);
 	void updateCursor(const sf::RenderWindow* target);
 
 	void renderBullets(sf::RenderWindow* target);
 	void renderRockets(sf::RenderWindow* target);
+	void renderGrenades(sf::RenderWindow* target);
 	void renderShells(sf::RenderWindow* target);
 	void renderSmokeParticles(sf::RenderWindow* target);
 	void renderFlashes(sf::RenderWindow* target);
@@ -137,6 +144,7 @@ protected:
 	u16 m_magazine = m_capacity;	// Ammo in magazine is avaible to shoot
 	float m_reloadTime;				// Reload speed in seconds. Minimum speed is animation speed
 	float m_fireRate;				// Shots per second
+	float m_grenadeLifeTimeInS;		// How much time grenade will live
 
 protected:
 	sf::Color m_particleColor;

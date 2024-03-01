@@ -37,9 +37,8 @@ private:
 private:
 	bool m_isAlive;
 
-
 private:
-	void killIfOutOfTime(float lifeTime);
+	void killIfOutOfTime();
 	void move(float deltaTime);
 	void decreaseAlpha();
 	void increaseScale();
@@ -72,6 +71,7 @@ public:
 public:
 	__forceinline const void kill() { this->m_isAlive = false; }
 	__forceinline const bool isAlive() const { return this->m_isAlive; }
+
 };
 
 #endif

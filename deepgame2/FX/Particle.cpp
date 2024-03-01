@@ -24,7 +24,7 @@ void Particle::update(float deltaTime)
 	{
 		this->m_elapsedTime = this->m_clock.getElapsedTime();
 
-		this->killIfOutOfTime(this->m_lifeTime);
+		this->killIfOutOfTime();
 		this->move(deltaTime);
 		this->decreaseAlpha();
 		this->increaseScale();
@@ -36,10 +36,10 @@ void Particle::render(sf::RenderWindow* target) const
 		target->draw(this->m_body);
 }
 
-void Particle::killIfOutOfTime(float lifeTime)
+void Particle::killIfOutOfTime()
 {
-	if (this->m_elapsedTime.asSeconds() >= lifeTime)
-		this->m_isAlive = false;
+	if (this->m_elapsedTime.asSeconds() >= this->m_lifeTime)
+		this->kill();
 }
 
 void Particle::move(float deltaTime)

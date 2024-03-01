@@ -7,4 +7,5 @@
 #include "shotguns/ShotGuns.h"
 #include "machineguns/MachineGuns.h"
 #include "energyguns/EnergyGuns.h"
-#include "explosiveguns/ExplosiveGuns.h"
+#include "rocketLaunchers/RocketLaunchers.h"
+#include "grenadeLaunchers/GrenadeLaunchers.h"

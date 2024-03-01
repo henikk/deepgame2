@@ -1,5 +1,5 @@
 #include "Rocket.h"
-#include <iostream>
+
 Rocket::Rocket(sf::Texture* _texture, sf::Vector2f _initialPostition, u16 _speed, u8 _damage, float _angle, float _range)
 	: m_texture(*_texture), m_initialPosition(_initialPostition), m_speed(_speed), m_damage(_damage), m_angle(_angle), m_range(_range), m_isAlive(true), m_isExplosionFlashShown(false)
 {	
@@ -203,7 +203,7 @@ void Rocket::initExplosionFlash()
 	this->m_isExplosionFlashAnimating = false;
 	this->m_explosionFrame = sf::IntRect(0, 0, 192, 192);
 	this->m_explosionFrameCount = 5u;
-	this->m_explosionTexture.loadFromFile("textures/particles/explosion_sprite_sheet.png");
+	this->m_explosionTexture.loadFromFile("textures/particles/explosion_sprite_sheet2.png");
 	this->m_explosionTexture.setSmooth(true);
 	this->m_explosionSprite.setTexture(this->m_explosionTexture);
 	this->m_explosionSprite.setTextureRect(this->m_explosionFrame);

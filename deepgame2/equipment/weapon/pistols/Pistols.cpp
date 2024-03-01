@@ -22,8 +22,8 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_showFlash = true;
 	this->m_showShells = true;
 	this->m_dynamicAccuracy = true;
-
-	this->m_ammoType = AmmoType::ROCKETS;
+	
+	this->m_ammoType = AmmoType::GRENADES;
 
 	this->m_shotFrameCount = 8;
 	this->m_emptyFrameCount = 4;

@@ -100,13 +100,11 @@ private:
 	void showExplosionFlash();
 
 private:
-	void move(float deltaTime);
-	
-	void animateExplosion();
-		
+	void move(float deltaTime);	
+	void animateExplosion();		
+
 	void updateParticles(float deltaTime);
-	void updateDebris(float deltaTime);
-	
+	void updateDebris(float deltaTime);	
 	void renderExplosionFlash(sf::RenderWindow* target);
 
 private:
@@ -127,8 +125,9 @@ public:
 
 	__forceinline const void kill() { this->m_isAlive = false; }
 	__forceinline const bool isAlive() const { return this->m_isAlive; }
-	__forceinline const bool isParticleAlive() const { return std::fmaxl(this->m_particles.size(), this->m_debris.size()) > 0 ? true : false;
-}
+	__forceinline const bool isParticleAlive() const { return std::fmaxl(this->m_particles.size(), this->m_debris.size()) > 0 ? true : false; }
+
+public:
 	const void explode();
 };
 

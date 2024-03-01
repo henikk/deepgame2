@@ -16,7 +16,7 @@ private:
     sf::Texture m_texture;
     sf::Vector2f m_velocity;
 
-private:
+private: // maybe change this
     bool m_previousButtonState;
     i8 m_weaponIterator;
         
@@ -55,7 +55,6 @@ private:
     //MachineGuns currentMachine;
     //Energyguns currentEnergy;
     //ExplosiveGuns currentExplosive;
-
 
     enum WeaponType
     {

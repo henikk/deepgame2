@@ -23,8 +23,9 @@
     <ClCompile Include="equipment\weapon\Bullet.cpp" />
     <ClCompile Include="equipment\weapon\energyguns\EnergyGuns.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="equipment\weapon\explosiveguns\ExplosiveGuns.cpp" />
+    <ClCompile Include="equipment\weapon\rocketLaunchers\RocketLaunchers.cpp" />
     <ClCompile Include="equipment\weapon\Grenade.cpp" />
+    <ClCompile Include="equipment\weapon\grenadeLaunchers\GrenadeLaunchers.cpp" />
     <ClCompile Include="HUD\Gadget.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HUD\HP.cpp" />
@@ -49,7 +50,7 @@
     <ClInclude Include="equipment\weapon\Bullet.h" />
     <ClInclude Include="equipment\weapon\energyguns\EnergyGuns.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="equipment\weapon\explosiveguns\ExplosiveGuns.h" />
+    <ClInclude Include="equipment\weapon\rocketLaunchers\RocketLaunchers.h" />
     <ClInclude Include="equipment\weapon\weaponsList.h" />
     <ClInclude Include="external\transition\SigmoidTrasition.hpp" />
     <ClInclude Include="FX\Bloom.hpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="external\include\SFML\Window\WindowHandle.hpp" />
     <ClInclude Include="external\include\SFML\Window\WindowStyle.hpp" />
     <ClInclude Include="equipment\weapon\Grenade.h" />
+    <ClInclude Include="equipment\weapon\grenadeLaunchers\GrenadeLaunchers.h" />
     <ClInclude Include="HUD\Gadget.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="HUD\HP.h" />
@@ -193,6 +195,7 @@
     <Image Include="textures\enemy\Skeleton Walk.png" />
     <Image Include="textures\particles\assault_shell.png" />
     <Image Include="textures\particles\explosion_sprite_sheet.png" />
+    <Image Include="textures\particles\explosion_sprite_sheet2.png" />
     <Image Include="textures\particles\fireball1.png" />
     <Image Include="textures\particles\fireball2.png" />
     <Image Include="textures\particles\flame1.png" />
