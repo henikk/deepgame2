@@ -183,13 +183,23 @@ protected:
 	bool m_dynamicAccuracy;
 
 protected:
-	u8 m_ammoType;
 	enum AmmoType
 	{
 		BULLETS,
 		ROCKETS,
 		GRENADES
 	};
+	enum GrenadeType
+	{
+		FRAG,
+		STUN,
+		SMOKE,
+		CHEMICAL,
+		FIRE,
+		EMPTY
+	};
+	AmmoType m_ammoType;
+	GrenadeType m_grenadeType;
 
 public:
 	Weapon(std::string _pathToTexture, std::string _pathToBulletTexture, std::string _pathToShellexture, std::vector<std::string> _pathsToSounds);

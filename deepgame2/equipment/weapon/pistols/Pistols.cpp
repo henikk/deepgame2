@@ -8,7 +8,7 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_bulletsPerShot = 1;
 	this->m_accuracyRecoverySpeed = 40.0f;
 	this->m_recoil = 10.0f;
-	this->m_bulletSpeed = 2000;
+	this->m_bulletSpeed = 1500;
 	this->m_fireRange = 2000;
 	this->m_viewRange = 1600; // TEMP
 	this->m_capacity = 9;
@@ -24,6 +24,7 @@ Pistols::Pistols(std::string _pathToTexture, std::string _pathToBulletTexture, s
 	this->m_dynamicAccuracy = true;
 	
 	this->m_ammoType = AmmoType::GRENADES;
+	this->m_grenadeType = GrenadeType::FRAG; // [TEMP]
 
 	this->m_shotFrameCount = 8;
 	this->m_emptyFrameCount = 4;

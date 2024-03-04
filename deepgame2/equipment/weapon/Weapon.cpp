@@ -262,12 +262,13 @@ const void Weapon::spawnRocket()
 const void Weapon::spawnGrenade()
 {
 	this->m_grenades.emplace_back(Grenade(
+		this->m_grenadeType,
 		&this->m_bulletTexture, 
 		this->m_barrelPosition, 
 		this->m_damage,
 		this->m_bulletSpeed,
 		this->m_accuracyAngle, 
-		3.2f)); // must be - this->m_grenadeLifeTimeInS
+		3.2 + static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / (4.2 - 3.2))))); // must be - this->m_grenadeLifeTimeInS
 }
 
 const void Weapon::spawnShell()

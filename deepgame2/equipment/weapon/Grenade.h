@@ -15,11 +15,14 @@ private:
 private:
 	enum GrenadeType
 	{
-		HE,
+		FRAG,
 		STUN,
+		SMOKE,
 		CHEMICAL,
-		FIRE
+		FIRE,
+		EMPTY
 	};
+	GrenadeType m_selectedGrenadeType;
 
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_initialPosition;
@@ -119,6 +122,7 @@ private:
 
 public:
 	Grenade(
+		u8 _type,
 		sf::Texture* _texture,
 		sf::Vector2f _initialPosition,
 		u8 _damage,
@@ -142,6 +146,11 @@ public:
 	
 public:
 	const void explode();
+	const void explodeFrag();
+	const void explodeStun();
+	const void explodeSmoke();
+	const void explodeChemical();
+	const void explodeFire();
 };
 
 #endif

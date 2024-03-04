@@ -748,6 +748,21 @@
     <Image Include="textures\particles\explosion_sprite_sheet2.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="textures\weapon\grenade\smoke_grenade.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\grenade\chemical_grenade.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\grenade\fire_grenade.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\grenade\flashbang_grenade.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\weapon\grenade\frag_grenade.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="external\include\SFML\Audio\SoundFileFactory.inl">

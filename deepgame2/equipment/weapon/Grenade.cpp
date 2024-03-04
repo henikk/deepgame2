@@ -2,7 +2,11 @@
 
 void Grenade::initBody()
 {
-	this->m_rotationSpeed = 55.0f;
+	this->m_rotationSpeed = 1000.0f;
+	this->m_rotationSpeed = static_cast<float>(rand() % (this->m_rotationSpeed + 1) - static_cast<float>(this->m_rotationSpeed / 2));
+	this->m_body.setOrigin(this->m_texture.getSize().x / 2.0f, this->m_texture.getSize().y / 2.0f);
+	this->m_body.setPosition(this->m_initialPosition);
+	this->m_body.setRotation(this->m_initialAngle);
 }
 
 void Grenade::initParticles()
@@ -72,12 +76,11 @@ void Grenade::initExplosionFlash()
 	this->m_explosionAnimationTimeInS = 0.1f;
 }
 
-Grenade::Grenade(sf::Texture* _texture, sf::Vector2f _initialPosition, u8 _damage, u16 _initialSpeed, float _initialAngle, float _lifeTime)
+Grenade::Grenade(u8 _type, sf::Texture* _texture, sf::Vector2f _initialPosition, u8 _damage, u16 _initialSpeed, float _initialAngle, float _lifeTime)
 	: m_texture(*_texture), m_initialPosition(_initialPosition), m_damage(_damage), m_initialSpeed(_initialSpeed),  m_initialAngle(_initialAngle), m_lifeTime(_lifeTime), m_isAlive(true)
 {
 	this->m_elapsedTime = this->m_clock.getElapsedTime();
-
-	_texture->setSmooth(true);
+	this->m_selectedGrenadeType = static_cast<GrenadeType>(_type);
 	this->m_body.setTexture(*_texture);
 
 	this->initBody();
@@ -107,7 +110,21 @@ void Grenade::showExplosionFlash()
 
 void Grenade::move(float deltaTime)
 {
-	this->m_body.setPosition(this->m_initialPosition); // [TEMP]
+	float verticalSpeed = this->m_initialSpeed * sin(this->m_initialAngle * 3.14f / 180.0f);
+	float horizontalSpeed = this->m_initialSpeed * cos(this->m_initialAngle * 3.14f / 180.0f);
+
+	float newVerticalSpeed = verticalSpeed + 1000.0f * deltaTime;
+	float verticalDisplacement = (verticalSpeed + newVerticalSpeed) / 2.0f * deltaTime;
+	float horizontalDisplacement = horizontalSpeed * deltaTime;
+
+	this->m_initialPosition.x += horizontalDisplacement;
+	this->m_initialPosition.y += verticalDisplacement;
+
+	this->m_initialSpeed = sqrt(pow(horizontalSpeed, 2) + pow(newVerticalSpeed, 2));
+	this->m_initialAngle = atan2(newVerticalSpeed, horizontalSpeed) * 180.0f / 3.14f;
+
+	this->m_body.setPosition(this->m_initialPosition);
+	this->m_body.rotate(this->m_rotationSpeed * deltaTime);
 }
 
 void Grenade::animateExplosion()
@@ -175,8 +192,26 @@ void Grenade::update(float deltaTime)
 		this->killIfOutOfTime();
 	}
 
+	switch (this->m_selectedGrenadeType)
+	{
+	case GrenadeType::FRAG:
+		this->updateDebris(deltaTime);
+		break;
+	case GrenadeType::STUN:
+		break;
+	case GrenadeType::SMOKE:
+		break;
+	case GrenadeType::CHEMICAL:
+		break;
+	case GrenadeType::FIRE:
+		break;
+	case GrenadeType::EMPTY:
+		break;
+	default:
+		break;
+	}
+
 	this->animateExplosion();
-	this->updateDebris(deltaTime);
 	this->updateParticles(deltaTime);
 }
 
@@ -196,10 +231,36 @@ void Grenade::render(sf::RenderWindow* target)
 
 const void Grenade::explode()
 {
+	switch (this->m_selectedGrenadeType)
+	{
+	case GrenadeType::FRAG:
+		this->explodeFrag();
+		break;
+	case GrenadeType::STUN:
+		this->explodeStun();
+		break;
+	case GrenadeType::SMOKE:
+		this->explodeSmoke();
+		break;
+	case GrenadeType::CHEMICAL:
+		this->explodeChemical();
+		break;
+	case GrenadeType::FIRE:
+		this->explodeFire();
+		break;
+	case GrenadeType::EMPTY:
+		break;
+	default:
+		break;
+	}
+}
+
+const void Grenade::explodeFrag()
+{
 	float currentAngle = 0.0f;
 
 	this->m_isExplosionFlashAnimating = true;
-	
+
 	// Smoke particles
 	for (int i = 0; i < this->m_explosionParticlesAmount; i++)
 	{
@@ -230,4 +291,66 @@ const void Grenade::explode()
 	}
 
 	this->showExplosionFlash();
+}
+
+const void Grenade::explodeStun()
+{
+	return void();
+}
+
+const void Grenade::explodeSmoke()
+{
+	float currentAngle = 0.0f;
+
+	for (int i = 0; i < this->m_explosionParticlesAmount; i++)
+	{
+		this->m_particles.emplace_back(Particle
+		(
+			this->m_explosionParticleColor,
+			&this->m_explosionParticleTexture,
+			this->m_body.getPosition(),
+			this->m_explosionParticleInitialScale,
+			this->m_explosionParticleMaxScale,
+			this->m_explosionParticleInitialAlpha,
+			this->m_explosionParticleRotationSpeed,
+			this->m_explosionParticleSpeed + rand() % this->m_explosionParticleSpeedError,
+			this->m_explosionParticleAcceleration,
+			currentAngle,
+			this->m_explosionParticleUpwardForce,
+			this->m_explosionParticleLifeTime + rand() % this->m_particleLifeTimeError
+		));
+
+		currentAngle += 360.0f / this->m_explosionParticlesAmount;
+	}
+}
+
+const void Grenade::explodeChemical()
+{
+	float currentAngle = 0.0f;
+
+	for (int i = 0; i < this->m_explosionParticlesAmount; i++)
+	{
+		this->m_particles.emplace_back(Particle
+		(
+			this->m_explosionParticleColor,
+			&this->m_explosionParticleTexture,
+			this->m_body.getPosition(),
+			this->m_explosionParticleInitialScale,
+			this->m_explosionParticleMaxScale,
+			this->m_explosionParticleInitialAlpha,
+			this->m_explosionParticleRotationSpeed,
+			this->m_explosionParticleSpeed + rand() % this->m_explosionParticleSpeedError,
+			this->m_explosionParticleAcceleration,
+			currentAngle,
+			this->m_explosionParticleUpwardForce,
+			this->m_explosionParticleLifeTime + rand() % this->m_particleLifeTimeError
+		));
+
+		currentAngle += 360.0f / this->m_explosionParticlesAmount;
+	}
+}
+
+const void Grenade::explodeFire()
+{
+	return void();
 }
