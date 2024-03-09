@@ -163,8 +163,8 @@ void Rocket::initParticles()
 	this->m_smokeParticleLifeTime = 1.5f;
 
 	// Fire
-	this->m_fireParticleColor = sf::Color::White;
-	this->m_fireParticleTexture.loadFromFile("textures/particles/flameLowRes1.png");
+	this->m_fireParticleColor = sf::Color::Yellow; // White
+	this->m_fireParticleTexture.loadFromFile("textures/particles/fire_01.png");
 	this->m_fireParticleInitialScale = { 0.4f, 0.4f };
 	this->m_fireParticleMaxScale = { 0.5f, 0.5f };
 	this->m_fireAngleError = 100u;

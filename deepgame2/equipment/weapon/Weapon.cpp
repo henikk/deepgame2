@@ -482,8 +482,10 @@ void Weapon::update(const sf::RenderWindow* target, float deltaTime)
 	this->m_body.setPosition(this->m_position + this->m_gunOffset);
 
 	// Reload
-	if (this->m_reloadElapsedTime.asSeconds() > this->m_reloadTime && this->m_reloadAnimating == false)
+	if (this->m_reloadElapsedTime.asSeconds() > this->m_reloadTime && !this->m_reloadAnimating)
+	{
 		this->m_canShoot = true;
+	}
 
 	// Emptying
 	if (this->m_magazine <= 0)
